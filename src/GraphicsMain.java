@@ -1,10 +1,11 @@
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GraphicsMain {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+public class GraphicsMain extends JFrame{
+
+	public static void main(String[] args){
 
 		GraphicsMain window = new GraphicsMain();
 	    JPanel p = new JPanel();
@@ -15,7 +16,6 @@ public class GraphicsMain {
 	    window.pack();
 	    window.setLocationRelativeTo(null);
 	    window.setVisible(true);
-	}
 	}
 
 }

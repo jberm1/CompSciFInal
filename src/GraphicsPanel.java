@@ -1,13 +1,28 @@
+// Class: GraphicsPanel
+// Written by: Mr. Swope
+// Date: 10/28/15
+// Description: This class is the main class for this project.  It extends the Jpanel class and will be drawn on
+// 				on the JPanel in the GraphicsMain class.  Your project should have at least one character that moves
+//				with the arrow keys and one character that moves with the clock.  Finally, you should detect if the
+//				two items intersect and have something happen if they do intersect.
+//
+// Since you will modify this class you should add comments that describe when and how you modified the class.  
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.xml.stream.events.Comment;
 
-public class GraphicsPanel {
+public class GraphicsPanel extends JPanel implements KeyListener{
+	
 	private Timer t;								 // The timer is used to move objects at a consistent time interval.
 	private Character spaceShip;					 // A spaceship
 	private Character ufo;						     // A UFO   
