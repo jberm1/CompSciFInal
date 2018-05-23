@@ -79,8 +79,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	//				coordinates you should repaint the panel.
 	public void clock(){
 		if(background_y<700)
-			background_y++;
-		else
+			//background_y++;
+		//else
 			background_y = 0;
 		
 		this.repaint();
