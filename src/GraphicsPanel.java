@@ -24,8 +24,8 @@ import javax.xml.stream.events.Comment;
 public class GraphicsPanel extends JPanel implements KeyListener{
 	
 	private Timer t;								 // The timer is used to move objects at a consistent time interval.
-	private Character spaceShip;					 // A spaceship
-	private Character ufo;						     // A UFO   
+	private Character player;					 // A spaceship
+	private Character zombie;						     // A zombie 
 	private int background_y;
 	
 	public GraphicsPanel()
@@ -33,8 +33,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
         background_y = 0;
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
         											 // of your background picture.   
-		spaceShip = new Character(0, 450, 550);
-		ufo = new Character(1, 450, 50);
+		 player = new Character(0, 450, 550);
+		zombie = new Character(1, 450, 50);
 		
         t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
         											 // action performed method every 5 milliseconds once the 
@@ -54,7 +54,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		Graphics2D g2 = (Graphics2D) g;
 		
 		ClassLoader cldr = this.getClass().getClassLoader();	// These five lines of code load the background picture.
-		String imagePath = "images/outer_space.png";			// Change this line if you want to use a different 
+		String imagePath = "images/backgroundtest.png";			// Change this line if you want to use a different 
 		URL imageURL = cldr.getResource(imagePath);				// background image.  The image should be saved in the
 		ImageIcon image = new ImageIcon(imageURL);				// images directory.
 		image.paintIcon(this, g2, 0, 0);
@@ -64,12 +64,12 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		ImageIcon background2Image = new ImageIcon(imageURL);
 		background2Image.paintIcon(this, g2, 0, background_y-700);
 		
-		if(spaceShip.getBounds().intersects(ufo.getBounds())){	// This code will detect if the pirate and parrot have
+		if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 																// collided.  Make something happen if they do intersect.
 		}
 		
-		spaceShip.draw(g2, this);
-		ufo.draw(g2, this);
+		player.draw(g2, this);
+		zombie.draw(g2, this);
 		
 	}
 	
