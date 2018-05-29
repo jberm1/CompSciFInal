@@ -12,6 +12,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 
 public class Character {
+	private int health;
 	private ImageIcon image;			// The ImageIcon will be used to hold the Character's png.
 										// This png must be saved in the images folder and will be loaded 
 										// in the constructor.
@@ -90,7 +91,14 @@ public class Character {
 	//			   add comments below that describe these integer values, for example...
 	//			   1 - move Character to the right.
 	public void keyPressedMove(int direction){
-		x_coordinate--;
+		if(direction == 0)
+			x_coordinate += 1;
+		else if(direction == 1)
+			x_coordinate -= 1;
+		else if(direction == 2)
+			y_coordinate += 1;
+		else if(direction == 3)
+			y_coordinate -= 1;
 	}
 	
 	// method: timerMove
