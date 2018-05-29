@@ -109,7 +109,18 @@ public class Character {
 	//			   add comments below that describe these integer values, for example...
 	//			   1 - move Character to the right.
 	public void timerMove(int direction){
-		x_coordinate--;
+		if(this.x_coordinate<512){
+			this.x_coordinate++;
+		}
+		if(this.x_coordinate>512){
+			this.x_coordinate--;
+		}
+		if(this.y_coordinate<350){
+			this.y_coordinate++;
+		}
+		if(this.y_coordinate>350){
+			this.y_coordinate--;
+		}
 	}
 	
 	// method: draw
