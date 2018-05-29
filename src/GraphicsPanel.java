@@ -27,10 +27,14 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private Character player;					 // A spaceship
 	private Character zombie;						     // A zombie 
 	private int background_y;
+	private int background_x;
+	public int direction;
 	
 	public GraphicsPanel()
 	{
-        background_y = 0;
+        direction = -1;
+		background_y = 0;
+        background_x = 0;
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
         											 // of your background picture.   
 		 player = new Character(0, 450, 550);
@@ -60,9 +64,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		image.paintIcon(this, g2, 0, 0);
 		
 		ImageIcon background1Image = new ImageIcon(imageURL);	// Two ImageIcon's are used to scroll the background.
-		background1Image.paintIcon(this, g2, 0, background_y);
+		background1Image.paintIcon(this, g2, background_x, background_y);
 		ImageIcon background2Image = new ImageIcon(imageURL);
-		background2Image.paintIcon(this, g2, 0, background_y-700);
+		background2Image.paintIcon(this, g2, background_x, background_y-700);
 		
 		if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 																// collided.  Make something happen if they do intersect.
@@ -78,11 +82,14 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	//				of one of your characters in this method so that it moves as time changes.  After you update the
 	//				coordinates you should repaint the panel.
 	public void clock(){
-		if(background_y<700)
-			//background_y++;
-		//else
-			background_y = 0;
-		
+		if(direction == 0)
+			background_x += 1;
+		else if(direction == 1)
+			background_x -= 1;
+		else if(direction == 2)
+			background_y += 1;
+		else if(direction == 3)
+			background_y -= 1;
 		this.repaint();
 	}
 
@@ -95,13 +102,27 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){
 			case KeyEvent.VK_LEFT:
+				direction = 0;
+				break;
+			case KeyEvent.VK_RIGHT:
+				direction = 1;
+				break;
+			case KeyEvent.VK_UP:
+				direction = 2;
+				break;
+			case KeyEvent.VK_DOWN:
+				direction = 3;
+				break;
+			//default:
+				//direction = -1;
+				//break;
 		}
-		this.repaint();
+		//this.repaint();
 	}
 	
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		
+		direction = -1;
 	}
 
 	@Override
