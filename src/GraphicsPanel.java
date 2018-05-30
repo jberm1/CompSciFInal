@@ -32,6 +32,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public double speed;
 	public boolean moving;
 	private ArrayList<Character> enemies;
+	private double timeCount;
 	
 	public GraphicsPanel()
 	{
@@ -48,8 +49,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		
         t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
         											 // action performed method every 5 milliseconds once the 
-        enemies.add(new Character(1, 450, 50,1));											 // timer is started. You can change how frequently this
-        enemies.add(new Character(1, 650, 250,1.2));												 // method is called by changing the first parameter.
+        enemies.add(new Character(-1, 450, 50,1));											 // timer is started. You can change how frequently this
+        enemies.add(new Character(-1, 650, 250,1.5));												 // method is called by changing the first parameter.
        
         
         t.start();
@@ -66,7 +67,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		Graphics2D g2 = (Graphics2D) g;
 		//test
 		ClassLoader cldr = this.getClass().getClassLoader();	// These five lines of code load the background picture.
-		String imagePath = "images/backgroundtest.png";			// Change this line if you want to use a different 
+		String imagePath = "images/Background.png";			// Change this line if you want to use a different 
 		URL imageURL = cldr.getResource(imagePath);				// background image.  The image should be saved in the
 		ImageIcon image = new ImageIcon(imageURL);				// images directory.
 		image.paintIcon(this, g2, 0, 0);
@@ -92,18 +93,28 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	//				of one of your characters in this method so that it moves as time changes.  After you update the
 	//				coordinates you should repaint the panel.
 	public void clock(){
+		System.out.println(background_y);
+		timeCount += 1;
 		
-		if(direction == 0){
+		if(moving && speed < 2){
+			speed += .05;
+		}
+		else if(moving == false && speed > 0){
+			speed -= .05;
+		}
+	
+
+		if(direction == 0 && background_x <= 0){
 			background_x += speed;
 		for(Character i:enemies){
 			i.setX((int)(i.getX() + speed));
 		}
-		}else if(direction == 1){
+		}else if(direction == 1 && background_x > -4000){
 			background_x -= speed;
 		for(Character i:enemies){
 			i.setX((int)(i.getX() - speed));
 		}
-		}else if(direction == 2){
+		}else if(direction == 2  && background_y < 685){
 			background_y += speed;
 		for(Character i:enemies){
 			i.setY((int)(i.getY() + speed));
@@ -114,20 +125,22 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			i.setY((int)(i.getY() - speed));
 		}
 		}
-			this.repaint();
 	
+		this.repaint();
 		
-		if(moving && speed < 3){
+		if(moving && speed < 2){
 			speed += .05;
 		}
 		else if(moving == false && speed > 0){
 			speed -= .05;
 		}
 	
+		if(timeCount%2 == 0){
 		for(Character zomb:enemies){
 			zomb.timerMove();
 		}
-	
+		}
+		//this.repaint();
 	}
 
 	// method: keyPressed()
@@ -137,25 +150,33 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	// parameters: KeyEvent e
 	@Override
 	public void keyPressed(KeyEvent e) {
-		moving = true;
+		
 		switch(e.getKeyCode()){
 			case KeyEvent.VK_LEFT:
+				moving = true;
 				direction = 0;
+				player.setChoice(1);
 				break;
 			case KeyEvent.VK_RIGHT:
+				moving = true;
 				direction = 1;
+				player.setChoice(2);
 				break;
 			case KeyEvent.VK_UP:
+				moving = true;
 				direction = 2;
+				player.setChoice(0);
 				break;
 			case KeyEvent.VK_DOWN:
+				moving = true;
 				direction = 3;
+				player.setChoice(3);
 				break;
 			//default:
 				//direction = -1;
 				//break;
 		}
-		//this.repaint();
+		this.repaint();
 	}
 	
 	@Override

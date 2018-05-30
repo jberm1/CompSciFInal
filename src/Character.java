@@ -14,7 +14,8 @@ import javax.swing.ImageIcon;
 public class Character {
 	private int health;
 	private ImageIcon image;			// The ImageIcon will be used to hold the Character's png.
-	private double speed;									// This png must be saved in the images folder and will be loaded 
+	private double speed;	
+	private int imageVal;								// This png must be saved in the images folder and will be loaded 
 										// in the constructor.
 	
 	private int x_coordinate;			// These ints will be used for the drawing the png on the graphics panel.
@@ -41,8 +42,18 @@ public class Character {
 																// when draw method is called.  You should modify
 																// the imagePath if you change the Character's png.
 		
-		if(imageChoice == 0)									// if statement that determines which image to use for		
-			imagePath = "images/spaceship.png";					// a Character object.  You can add other options as well.
+		if(imageChoice == 0){									// if statement that determines which image to use for		
+			imageVal = 0;
+			imagePath = "images/player1.png";					// a Character object.  You can add other options as well.
+		}
+		else if(imageChoice == 1){
+			imageVal = 1;
+			imagePath = "images/player1Left.png";
+		}
+		else if(imageChoice == 2){
+			imageVal= 2;
+			imagePath = "images/player1Right.png";
+		}
 		else
 			imagePath = "images/UFO.png";
 		
@@ -91,6 +102,38 @@ public class Character {
 	public void setX(int x_coordinate){
 		this.x_coordinate = x_coordinate;
 	}
+	
+	public void setChoice(int imageChoice){
+		ClassLoader cldr = this.getClass().getClassLoader();	// These eight lines of code load the Character's png
+		String imagePath;										// so that it later be painted on the graphics panel
+		// when draw method is called.  You should modify															// the imagePath if you change the Character's 
+		if(imageChoice == 0){	
+			imageVal =0;														// if statement that determines which image to use for		
+			imagePath = "images/player1.png";					    // a Character object.  You can add other options as well.
+		}else if(imageChoice == 1){
+			imageVal=1;
+			imagePath = "images/player1Left.png";
+		}else if(imageChoice == 2){
+			imageVal =2;
+			imagePath = "images/player1Right.png";
+		}
+		else if(imageChoice == 3){
+			imageVal =3;
+			imagePath="images/player1Back.png";
+		}
+		else{
+			imageVal = -1;
+			imagePath= "images/UFO.png";
+		}
+		URL imageURL = cldr.getResource(imagePath);				
+		image = new ImageIcon(imageURL);
+	}
+	
+	
+	public int getChoice(){
+		return imageVal;
+	}
+	
 	// method: keyPressedMove
 	// description: This method should modify the Character's x or y (or perhaps both) coordinates.  When the 
 	//				graphics panel is repainted the Character will then be drawn in it's new location.
