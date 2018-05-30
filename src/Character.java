@@ -83,6 +83,13 @@ public class Character {
 		return y_coordinate;
 	}
 	
+	public void setY(int y_coordinate){
+		this.y_coordinate = y_coordinate;
+	}
+	
+	public void setX(int x_coordinate){
+		this.x_coordinate = x_coordinate;
+	}
 	// method: keyPressedMove
 	// description: This method should modify the Character's x or y (or perhaps both) coordinates.  When the 
 	//				graphics panel is repainted the Character will then be drawn in it's new location.
@@ -108,11 +115,11 @@ public class Character {
 	//			   the Character, so decide on a standard for what each integer value will stand for and then
 	//			   add comments below that describe these integer values, for example...
 	//			   1 - move Character to the right.
-	public void timerMove(int direction){
-		if(this.x_coordinate<512){
+	public void timerMove(){
+		if(this.x_coordinate<450){
 			this.x_coordinate++;
 		}
-		if(this.x_coordinate>512){
+		if(this.x_coordinate>450){
 			this.x_coordinate--;
 		}
 		if(this.y_coordinate<350){

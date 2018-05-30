@@ -31,6 +31,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public int direction;
 	public double speed;
 	public boolean moving;
+	private ArrayList<Character> enemies;
 	
 	public GraphicsPanel()
 	{
@@ -39,10 +40,11 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		direction = -1;
 		background_y = 0;
         background_x = 0;
+        enemies = new ArrayList<>();
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
         											 // of your background picture.   
 		 player = new Character(0, 450, 288);
-		//zombie = new Character(1, 450, 50);
+		 zombie = new Character(1, 450, 50);
 		
         t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
         											 // action performed method every 5 milliseconds once the 
@@ -77,7 +79,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	//	}
 		
 		player.draw(g2, this);
-		//zombie.draw(g2, this);
+		zombie.draw(g2, this);
 		
 	}
 	
@@ -86,22 +88,32 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	//				of one of your characters in this method so that it moves as time changes.  After you update the
 	//				coordinates you should repaint the panel.
 	public void clock(){
-		if(direction == 0)
+		
+		if(direction == 0){
 			background_x += speed;
-		else if(direction == 1)
+			zombie.setX((int)(zombie.getX() + speed));
+		}else if(direction == 1){
 			background_x -= speed;
-		else if(direction == 2)
+			zombie.setX((int)(zombie.getX() - speed));
+		}else if(direction == 2){
 			background_y += speed;
-		else if(direction == 3)
+			zombie.setY((int)(zombie.getY() + speed));
+		}else if(direction == 3){
 			background_y -= speed;
-		this.repaint();
+			zombie.setY((int)(zombie.getY() - speed));
+		}
+			this.repaint();
 	
+		
 		if(moving && speed < 2){
 			speed += .05;
 		}
 		else if(moving == false && speed > 0){
 			speed -= .05;
 		}
+	
+		zombie.timerMove();
+	
 	}
 
 	// method: keyPressed()
