@@ -117,18 +117,25 @@ public class Character {
 	//			   add comments below that describe these integer values, for example...
 	//			   1 - move Character to the right.
 	public void timerMove(){
-		if(this.x_coordinate<450){
+		int differenceX=Math.abs(this.getX()-450);
+		int differenceY=Math.abs(this.getY()-350);
+		
+		System.out.println(differenceX);
+		System.out.println(differenceY);
+		
+		if(this.x_coordinate<450&&differenceX<400&&differenceY<400){
 			this.x_coordinate+= speed;
 		}
-		if(this.x_coordinate>450){
+		if(this.x_coordinate>450&&differenceX<400&&differenceY<400){
 			this.x_coordinate-=speed;
 		}
-		if(this.y_coordinate<350){
+		if(this.y_coordinate<350&&differenceY<400&&differenceX<400){
 			this.y_coordinate+=speed;
 		}
-		if(this.y_coordinate>350){
+		if(this.y_coordinate>350&&differenceY<400&&differenceX<400){
 			this.y_coordinate-=speed;
 		}
+		
 	}
 	
 	// method: draw
