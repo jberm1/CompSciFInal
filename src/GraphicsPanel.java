@@ -60,7 +60,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public void paintComponent(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
-		
+		//test
 		ClassLoader cldr = this.getClass().getClassLoader();	// These five lines of code load the background picture.
 		String imagePath = "images/backgroundtest.png";			// Change this line if you want to use a different 
 		URL imageURL = cldr.getResource(imagePath);				// background image.  The image should be saved in the
