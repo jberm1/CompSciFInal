@@ -29,16 +29,20 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private int background_y;
 	private int background_x;
 	public int direction;
+	public double speed;
+	public boolean moving;
 	
 	public GraphicsPanel()
 	{
-        direction = -1;
+        moving = false;
+		speed = 1;
+		direction = -1;
 		background_y = 0;
         background_x = 0;
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
         											 // of your background picture.   
-		 player = new Character(0, 450, 550);
-		zombie = new Character(1, 450, 50);
+		 player = new Character(0, 450, 288);
+		//zombie = new Character(1, 450, 50);
 		
         t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
         											 // action performed method every 5 milliseconds once the 
@@ -68,12 +72,12 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		ImageIcon background2Image = new ImageIcon(imageURL);
 		background2Image.paintIcon(this, g2, background_x, background_y-700);
 		
-		if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
+		//if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 																// collided.  Make something happen if they do intersect.
-		}
+	//	}
 		
 		player.draw(g2, this);
-		zombie.draw(g2, this);
+		//zombie.draw(g2, this);
 		
 	}
 	
@@ -83,14 +87,21 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	//				coordinates you should repaint the panel.
 	public void clock(){
 		if(direction == 0)
-			background_x += 1;
+			background_x += speed;
 		else if(direction == 1)
-			background_x -= 1;
+			background_x -= speed;
 		else if(direction == 2)
-			background_y += 1;
+			background_y += speed;
 		else if(direction == 3)
-			background_y -= 1;
+			background_y -= speed;
 		this.repaint();
+	
+		if(moving && speed < 2){
+			speed += .05;
+		}
+		else if(moving == false && speed > 0){
+			speed -= .05;
+		}
 	}
 
 	// method: keyPressed()
@@ -100,6 +111,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	// parameters: KeyEvent e
 	@Override
 	public void keyPressed(KeyEvent e) {
+		moving = true;
 		switch(e.getKeyCode()){
 			case KeyEvent.VK_LEFT:
 				direction = 0;
@@ -122,7 +134,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		direction = -1;
+		moving = false;
+		//speed = 0;
+		//direction = -1;
 	}
 
 	@Override
