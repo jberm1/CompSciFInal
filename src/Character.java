@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 public class Character {
 	private int health;
 	private ImageIcon image;			// The ImageIcon will be used to hold the Character's png.
-										// This png must be saved in the images folder and will be loaded 
+	private double speed;									// This png must be saved in the images folder and will be loaded 
 										// in the constructor.
 	
 	private int x_coordinate;			// These ints will be used for the drawing the png on the graphics panel.
@@ -25,7 +25,7 @@ public class Character {
 	
 	// method: Default constructor - see packed constructors comments for a description of parameters.
 	public Character(){
-		this(0, 200, 300);
+		this(0, 200, 300,1);
 	}
 		
 	// method: Character's packed constructor
@@ -34,7 +34,7 @@ public class Character {
 	//			   existing options or add other options. 0 - pirate, 1 - parrot.
 	//			   x_coordinate - the initial x-coordinate for Character.
 	//			   y_coordinate - the initial y-coordinate for Character.
-	public Character(int imageChoice, int x_coordinate, int y_coordinate){
+	public Character(int imageChoice, int x_coordinate, int y_coordinate, double speed){
         
 		ClassLoader cldr = this.getClass().getClassLoader();	// These eight lines of code load the Character's png
 		String imagePath;										// so that it later be painted on the graphics panel
@@ -51,6 +51,7 @@ public class Character {
         
         this.x_coordinate = x_coordinate;						// Initial coordinates for the Character.
         this.y_coordinate = y_coordinate;  
+        this.speed = speed;
 	}
 	
 	// method: getBounds
@@ -117,16 +118,16 @@ public class Character {
 	//			   1 - move Character to the right.
 	public void timerMove(){
 		if(this.x_coordinate<450){
-			this.x_coordinate++;
+			this.x_coordinate+= speed;
 		}
 		if(this.x_coordinate>450){
-			this.x_coordinate--;
+			this.x_coordinate-=speed;
 		}
 		if(this.y_coordinate<350){
-			this.y_coordinate++;
+			this.y_coordinate+=speed;
 		}
 		if(this.y_coordinate>350){
-			this.y_coordinate--;
+			this.y_coordinate-=speed;
 		}
 	}
 	
