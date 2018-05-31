@@ -11,7 +11,7 @@ public class Zombie {
 		this.setHealth(health);
 		this.setHitValue(hitValue);
 	}
-
+//
 	
 	public int getHealth() {
 		return health;

@@ -12,7 +12,7 @@ public Weapon(int health, int hitValue){
 	this.hitValue=hitValue;
 }
 
-
+//
 
 public int getHitValue() {
 	return hitValue;

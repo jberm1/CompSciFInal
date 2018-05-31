@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.xml.stream.events.Comment;
-
+//
 public class GraphicsPanel extends JPanel implements KeyListener{
 	//test
 	private Timer t;								 // The timer is used to move objects at a consistent time interval.
