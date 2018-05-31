@@ -145,7 +145,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		
 		//this.repaint();
 	}
-
+//
 	// method: keyPressed()
 	// description: This method is called when a key is pressed. You can determine which key is pressed using the 
 	//				KeyEvent object and .  For example if(e.getKeyCode() == KeyEvent.VK_LEFT) would test to see if
