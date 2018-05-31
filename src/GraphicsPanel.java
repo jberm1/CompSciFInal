@@ -44,13 +44,13 @@ public class GraphicsPanel extends JPanel implements KeyListener{
         enemies = new ArrayList<>();
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
         											 // of your background picture.   
-		 player = new Character(0, 450, 288,1);
+		 player = new Character(0, 450, 288,1,100);
 		 //zombie = new Character(1, 450, 50);
 		
         t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
         											 // action performed method every 5 milliseconds once the 
-        enemies.add(new Character(-1, 1150, 50,1.5));											 // timer is started. You can change how frequently this
-        enemies.add(new Character(-1, 500, 1500,2));												 // method is called by changing the first parameter.
+        enemies.add(new Character(-1, 1150, 50,1.5,50));											 // timer is started. You can change how frequently this
+        enemies.add(new Character(-1, 500, 1500,2,50));												 // method is called by changing the first parameter.
        
         
         t.start();
