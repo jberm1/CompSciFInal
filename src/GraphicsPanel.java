@@ -33,6 +33,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public boolean moving;
 	private ArrayList<Character> enemies;
 	private double timeCount;
+	private boolean attack;
 	
 	public GraphicsPanel()
 	{
@@ -42,6 +43,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		background_y = 0;
         background_x = 0;
         enemies = new ArrayList<>();
+        attack=false;
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
         											 // of your background picture.   
 		 player = new Character(0, 450, 288,1,100);
@@ -142,6 +144,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		}
 		}
 		System.out.println(player.getY());
+		for(Character zomb:enemies){
+		if(attack==true&&direction==0&&zomb.getBounds()==){
 		
 		//this.repaint();
 	}
