@@ -2,7 +2,7 @@
 // Written by: Mr. Swope
 // Date: 10/28/15
 // Description: This class implements a Character.  This Character will be drawn onto a graphics panel. 
-// //
+// ////
 // If you modify this class you should add comments that describe when and how you modified the class.  
 
 import java.awt.Component;

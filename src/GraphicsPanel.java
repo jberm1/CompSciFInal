@@ -7,7 +7,7 @@
 //				two items intersect and have something happen if they do intersect.
 //
 // Since you will modify this class you should add comments that describe when and how you modified the class.  
-
+//////
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

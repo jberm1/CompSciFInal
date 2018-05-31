@@ -1,4 +1,4 @@
-
+//
 public class Zombie {
 	//instance variable:
 	private int health;
