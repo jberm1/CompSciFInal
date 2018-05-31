@@ -143,13 +143,13 @@ public class Character {
 	//			   1 - move Character to the right.
 	public void keyPressedMove(int direction){
 		if(direction == 0)
-			x_coordinate += 1;
-		else if(direction == 1)
 			x_coordinate -= 1;
+		else if(direction == 1)
+			x_coordinate += 1;
 		else if(direction == 2)
-			y_coordinate += 1;
-		else if(direction == 3)
 			y_coordinate -= 1;
+		else if(direction == 3)
+			y_coordinate += 1;
 	}
 	
 	// method: timerMove
@@ -160,16 +160,22 @@ public class Character {
 	//			   add comments below that describe these integer values, for example...
 	//			   1 - move Character to the right.
 	public void timerMove(){
-		if(this.x_coordinate<450){
+		int differenceX=Math.abs(this.getX()-450);
+		int differenceY=Math.abs(this.getY()-350);
+		
+//		System.out.println(differenceX);
+//		System.out.println(differenceY);
+		
+		if(this.x_coordinate<450&&differenceX<600&&differenceY<600){
 			this.x_coordinate+= speed;
 		}
-		if(this.x_coordinate>450){
+		if(this.x_coordinate>450&&differenceX<600&&differenceY<600){
 			this.x_coordinate-=speed;
 		}
-		if(this.y_coordinate<350){
+		if(this.y_coordinate<320&&differenceY<600&&differenceX<600){
 			this.y_coordinate+=speed;
 		}
-		if(this.y_coordinate>350){
+		if(this.y_coordinate>320&&differenceY<600&&differenceX<600){
 			this.y_coordinate-=speed;
 		}
 	}

@@ -49,8 +49,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		
         t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
         											 // action performed method every 5 milliseconds once the 
-        enemies.add(new Character(-1, 450, 50,1));											 // timer is started. You can change how frequently this
-        enemies.add(new Character(-1, 650, 250,1.5));												 // method is called by changing the first parameter.
+        enemies.add(new Character(-1, 1150, 50,1.5));											 // timer is started. You can change how frequently this
+        enemies.add(new Character(-1, 500, 1500,2));												 // method is called by changing the first parameter.
        
         
         t.start();
@@ -93,7 +93,6 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	//				of one of your characters in this method so that it moves as time changes.  After you update the
 	//				coordinates you should repaint the panel.
 	public void clock(){
-		System.out.println(background_y);
 		timeCount += 1;
 		
 		if(moving && speed < 2){
@@ -104,26 +103,28 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		}
 	
 
-		if(direction == 0 && background_x <= 0){
+		if(direction == 0 && background_x <= 0 && player.getX() == 450){
 			background_x += speed;
 		for(Character i:enemies){
 			i.setX((int)(i.getX() + speed));
 		}
-		}else if(direction == 1 && background_x > -4000){
+		}else if(direction == 1 && background_x > -3954 && player.getX() == 450){
 			background_x -= speed;
 		for(Character i:enemies){
 			i.setX((int)(i.getX() - speed));
 		}
-		}else if(direction == 2  && background_y < 685){
+		}else if(direction == 2  && background_y < 685 && player.getY() == 288){
 			background_y += speed;
 		for(Character i:enemies){
 			i.setY((int)(i.getY() + speed));
 		}
-		}else if(direction == 3){
+		}else if(direction == 3  && background_y > -3584 && player.getY() == 288){
 			background_y -= speed;
 		for(Character i:enemies){
 			i.setY((int)(i.getY() - speed));
 		}
+		}else{
+			player.keyPressedMove(direction);
 		}
 	
 		this.repaint();
@@ -140,6 +141,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			zomb.timerMove();
 		}
 		}
+		System.out.println(player.getY());
+		
 		//this.repaint();
 	}
 
@@ -183,7 +186,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public void keyReleased(KeyEvent arg0) {
 		moving = false;
 		//speed = 0;
-		//direction = -1;
+		direction = -1;
 	}
 
 	@Override
