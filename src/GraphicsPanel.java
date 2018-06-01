@@ -143,9 +143,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			zomb.timerMove();
 		}
 		}
-		System.out.println(player.getY());
-		for(Character zomb:enemies){
-		if(attack==true&&direction==0&&zomb.getBounds()==){
+//		System.out.println(player.getY());
+//		for(Character zomb:enemies){
+//		if(attack==true&&direction==0&&zomb.getBounds()==){
 		
 		//this.repaint();
 	}
