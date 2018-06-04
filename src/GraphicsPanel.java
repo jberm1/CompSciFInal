@@ -32,8 +32,10 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public double speed;
 	public boolean moving;
 	private ArrayList<Character> enemies;
+	private ArrayList<Character> trees;
 	private double timeCount;
 	private boolean attack;
+	private Character tree;
 
 	public GraphicsPanel()
 	{
@@ -44,6 +46,13 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		background_x = 0;
 		enemies = new ArrayList<>();
 		attack=false;
+		trees=new ArrayList<>();
+		trees.add(new Character(5,200,300,0,50));
+		trees.add(new Character(5,53,300,0,50));
+		trees.add(new Character(5,653,300,0,50));
+		trees.add(new Character(5,431,300,0,50));
+		trees.add(new Character(5,300,300,0,50));
+
 
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
 		// of your background picture.   
@@ -52,13 +61,13 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 
 		t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
 		// action performed method every 5 milliseconds once the 
-		enemies.add(new Character(-1, 1150, 50,1.5,100));											 // timer is started. You can change how frequently this
-		enemies.add(new Character(-1, 500, 1500,2,50));												 // method is called by changing the first parameter.
-		
+		enemies.add(new Character(3, 1150, 50,1.5,100));											 // timer is started. You can change how frequently this
+		enemies.add(new Character(3, 500, 1500,2,50));												 // method is called by changing the first parameter.
+
 		player.setHealth(100);
 
 		t.start();
-		this.setFocusable(true);					 // for keylistener
+		this.setFocusable(true);																		 // for keylistener
 		this.addKeyListener(this);
 	}
 
@@ -81,6 +90,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		ImageIcon background2Image = new ImageIcon(imageURL);
 		background2Image.paintIcon(this, g2, background_x, background_y-700);
 
+
 		//if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 		// collided.  Make something happen if they do intersect.
 		//	}
@@ -89,7 +99,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		for(Character e : enemies){
 			e.draw(g2, this);
 		}
-
+		for(Character t:trees){
+			t.draw(g2, this);
+		}
 	}
 
 	// method:clock
@@ -127,39 +139,48 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			for(Character i:enemies){
 				i.setY((int)(i.getY() - speed));
 			}
-		}else{
-			player.keyPressedMove(direction);
-		}
 
-		this.repaint();
+			
 
-		if(moving && speed < 2){
-			speed += .05;
-		}
-		else if(moving == false && speed > 0){
-			speed -= .05;
-		}
 
-		if(timeCount%2 == 0){
-			for(Character zomb:enemies){
-				zomb.timerMove();
+
+
+
+
+			}else{
+				player.keyPressedMove(direction);
 			}
-		}
-		if(timeCount%100==0){
-			for(Character zomb:enemies){
-				if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
-					player.setHealth(player.getHealth()-15);
+
+			this.repaint();
+
+			if(moving && speed < 2){
+				speed += .05;
+			}
+			else if(moving == false && speed > 0){
+				speed -= .05;
+			}
+
+			if(timeCount%2 == 0){
+				for(Character zomb:enemies){
+					zomb.timerMove();
 				}
 			}
-		}
-		
+			if(timeCount%100==0){
+				for(Character zomb:enemies){
+					if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
+						player.setHealth(player.getHealth()-15);
+					}
+				}
+			}
+
 			if(player.getHealth()<=0){
 				System.out.println(player.getHealth());
 			}
-		
+		}
+
 
 		//this.repaint();
-	}
+	
 	//
 	// method: keyPressed()
 	// description: This method is called when a key is pressed. You can determine which key is pressed using the 
@@ -191,7 +212,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			player.setChoice(3);
 			break;
 			//default:
-			//direction = -1;
+				//direction = -1;
 			//break;
 		}
 		this.repaint();

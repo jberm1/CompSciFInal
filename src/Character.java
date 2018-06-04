@@ -55,9 +55,11 @@ public class Character {
 			imageVal= 2;
 			imagePath = "images/player1Right.png";
 		}
-		else
+		else if(imageChoice==3){
 			imagePath = "images/UFO.png";
-		
+		}
+		else
+			imagePath="images/tree.png";
 		URL imageURL = cldr.getResource(imagePath);				
         image = new ImageIcon(imageURL);						
         
@@ -178,6 +180,7 @@ public class Character {
 		int differenceX=Math.abs(this.getX()-450);
 		int differenceY=Math.abs(this.getY()-350);
 		
+		
 //		System.out.println(differenceX);
 //		System.out.println(differenceY);
 		
@@ -192,6 +195,7 @@ public class Character {
 		}
 		if(this.y_coordinate>320&&differenceY<600&&differenceX<600){
 			this.y_coordinate-=speed;
+		
 		}
 	}
 	
