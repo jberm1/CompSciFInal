@@ -34,8 +34,6 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private ArrayList<Character> enemies;
 	private double timeCount;
 	private boolean attack;
-	private int differenceX=Math.abs(this.getX()-450);
-	private int differenceY=Math.abs(this.getY()-350);
 
 	public GraphicsPanel()
 	{
@@ -54,9 +52,10 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 
 		t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
 		// action performed method every 5 milliseconds once the 
-		enemies.add(new Character(-1, 1150, 50,1.5,50));											 // timer is started. You can change how frequently this
+		enemies.add(new Character(-1, 1150, 50,1.5,100));											 // timer is started. You can change how frequently this
 		enemies.add(new Character(-1, 500, 1500,2,50));												 // method is called by changing the first parameter.
-
+		
+		player.setHealth(100);
 
 		t.start();
 		this.setFocusable(true);					 // for keylistener
@@ -146,16 +145,18 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 				zomb.timerMove();
 			}
 		}
-		for(Character zomb:enemies){
-			if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
-				zomb.setHealth(zomb.getHealth()-15);
+		if(timeCount%100==0){
+			for(Character zomb:enemies){
+				if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
+					player.setHealth(player.getHealth()-15);
+				}
 			}
 		}
-		for(Character zomb:enemies){
-			if(zomb.getHealth()<=0){
-				System.out.println("hi");
+		
+			if(player.getHealth()<=0){
+				System.out.println(player.getHealth());
 			}
-		}
+		
 
 		//this.repaint();
 	}
@@ -190,7 +191,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			player.setChoice(3);
 			break;
 			//default:
-				//direction = -1;
+			//direction = -1;
 			//break;
 		}
 		this.repaint();
