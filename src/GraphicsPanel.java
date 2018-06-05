@@ -36,6 +36,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private double timeCount;
 	private boolean attack;
 	private Character tree;
+	private ArrayList<Weapon> bullets;
 
 	public GraphicsPanel()
 	{
@@ -53,6 +54,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		//trees.add(new Character(5,431,300,0,50));
 		//trees.add(new Character(5,300,300,0,50));
 
+		bullets = new ArrayList<>();
 
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
 		// of your background picture.   
@@ -95,7 +97,11 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		// collided.  Make something happen if they do intersect.
 		//	}
 
+		
 		player.draw(g2, this);
+		for(Weapon s : bullets){
+			s.draw(g2, this);
+		}
 		for(Character e : enemies){
 			e.draw(g2, this);
 		}
@@ -117,7 +123,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 				i.setX((int)(i.getX() + speed));
 			}
 			for(Character t: trees){
-				t.setX((t.getX() + speed));
+				t.setX( (t.getX() + speed));
 			}
 		}else if(direction == 1 && background_x > -3954 && player.getX() == 450){
 			background_x -= speed;
@@ -173,8 +179,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 				System.out.println(player.getHealth());
 			}
 			
-			
-			
+			for(Weapon s: bullets){
+				s.shoot();
+			}
 			
 			this.repaint();
 	}
@@ -212,9 +219,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			direction = 3;
 			player.setChoice(3);
 			break;
-			//default:
-				//direction = -1;
-			//break;
+		case KeyEvent.VK_SPACE:
+			bullets.add(new Weapon(30, 450, 288,1,direction));
+			break;
 		}
 		this.repaint();
 	}
@@ -223,7 +230,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public void keyReleased(KeyEvent arg0) {
 		moving = false;
 		//speed = 0;
-		direction = -1;
+		//direction = -1;
 	}
 
 	@Override
