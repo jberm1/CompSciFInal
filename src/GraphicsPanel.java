@@ -35,7 +35,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private ArrayList<Character> trees;
 	private double timeCount;
 	private boolean attack;
-	private Character tree;
+
 	private ArrayList<Weapon> bullets;
 
 	public GraphicsPanel()
@@ -48,11 +48,11 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		enemies = new ArrayList<>();
 		attack=false;
 		trees=new ArrayList<>();
-		trees.add(new Character(5,500,300,0,50));
-		trees.add(new Character(5,853,600,0,50));
-		//trees.add(new Character(5,653,300,0,50));
-		//trees.add(new Character(5,431,300,0,50));
-		//trees.add(new Character(5,300,300,0,50));
+		for(int i=0;i<100;i++){
+
+			trees.add(new Character(5,(int)(Math.random()*4000)+500,(int)(Math.random()*4000)+1,0,50));
+		}
+
 
 		bullets = new ArrayList<>();
 
@@ -93,11 +93,12 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		background2Image.paintIcon(this, g2, (int)background_x, (int)background_y-700);
 
 
+
 		//if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 		// collided.  Make something happen if they do intersect.
 		//	}
 
-		
+
 		player.draw(g2, this);
 		for(Weapon s : bullets){
 			s.draw(g2, this);
@@ -124,7 +125,6 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			}
 			for(Character t: trees){
 				t.setX( (t.getX() + speed));
-			
 			}
 		}else if(direction == 1 && background_x > -3954 && player.getX() == 450){
 			background_x -= speed;
@@ -150,47 +150,54 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			for(Character t: trees){
 				t.setY((t.getY() - speed));
 			}
-			}else{
-				player.keyPressedMove(direction);
-			}
-			
-			if(moving && speed < 2){
-				speed += .05;
-			
-			}
-			else if(moving == false && speed > 0){
-				speed -= .05;
-			}
+		}else{
+			player.keyPressedMove(direction);
+		}
 
-			
-			
-			if(timeCount%2 == 0){
-				for(Character zomb:enemies){
-					zomb.timerMove();
+		if(moving && speed < 2){
+			speed += .05;
+
+		}
+		else if(moving == false && speed > 0){
+			speed -= .05;
+		}
+
+
+
+		if(timeCount%2 == 0){
+			for(Character zomb:enemies){
+				zomb.timerMove();
+			}
+		}
+		if(timeCount%100==0){
+			for(Character zomb:enemies){
+				if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
+					player.setHealth(player.getHealth()-15);
 				}
 			}
-			if(timeCount%100==0){
-				for(Character zomb:enemies){
-					if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
-						player.setHealth(player.getHealth()-15);
-					}
-				}
+		}
+
+		if(player.getHealth()<=0){
+			//			System.out.println(player.getHealth());
+		}
+
+		for(Weapon s: bullets){
+			s.shoot();
+		}
+		for(Character tree:trees){
+			if(player.getBounds().intersects(tree.getBounds())){
+				speed = 0;
 			}
 
-			if(player.getHealth()<=0){
-				System.out.println(player.getHealth());
-			}
-			
-			for(Weapon s: bullets){
-				s.shoot();
-			}
-			
+
 			this.repaint();
+		}
 	}
 
 
-		//this.repaint();
-	
+
+	//this.repaint();
+
 	//
 	// method: keyPressed()
 	// description: This method is called when a key is pressed. You can determine which key is pressed using the 
