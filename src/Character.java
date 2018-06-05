@@ -19,8 +19,8 @@ public class Character {
 	// This png must be saved in the images folder and will be loaded 
 										// in the constructor.
 	
-	private int x_coordinate;			// These ints will be used for the drawing the png on the graphics panel.
-	private int y_coordinate;			// When the Character's move method is called you should update one or both
+	private double x_coordinate;			// These ints will be used for the drawing the png on the graphics panel.
+	private double y_coordinate;			// When the Character's move method is called you should update one or both
 										// of these instance variables.  (0,0) is the top left hand corner of the
 										// panel.  x increases as you move to the right, y increases as you move
 										// down.
@@ -95,28 +95,28 @@ public class Character {
 	//				return true if the two rectangles overlap, false if they do not.
 	// return: A Rectangle - This rectangle would be like drawing a rectangle around the Character's image.
 	public Rectangle getBounds(){
-		return new Rectangle(x_coordinate, y_coordinate, image.getIconWidth(), image.getIconHeight());
+		return new Rectangle((int)x_coordinate, (int)y_coordinate, image.getIconWidth(), image.getIconHeight());
 	}
 	
 	// method: getX
 	// description:  This method will return the x-coordinate of the top left hand corner of the the image.
 	// return: int - the x-coordinate of the top left hand corner of the the image.
-	public int getX(){
+	public double getX(){
 		return x_coordinate;
 	}
 	
 	// method: getY
 	// description:  This method will return the y-coordinate of the top left hand corner of the the image.
 	// return: int - the y-coordinate of the top left hand corner of the the image.
-	public int getY(){
+	public double getY(){
 		return y_coordinate;
 	}
 	
-	public void setY(int y_coordinate){
+	public void setY(double y_coordinate){
 		this.y_coordinate = y_coordinate;
 	}
 	
-	public void setX(int x_coordinate){
+	public void setX(double x_coordinate){
 		this.x_coordinate = x_coordinate;
 	}
 	
@@ -177,8 +177,8 @@ public class Character {
 	//			   add comments below that describe these integer values, for example...
 	//			   1 - move Character to the right.
 	public void timerMove(){
-		int differenceX=Math.abs(this.getX()-450);
-		int differenceY=Math.abs(this.getY()-350);
+		double differenceX=Math.abs(this.getX()-450);
+		double differenceY=Math.abs(this.getY()-350);
 		
 		
 //		System.out.println(differenceX);
@@ -205,6 +205,6 @@ public class Character {
 	// parameters: Graphics g - this object draw's the image.
 	//			   Component c - this is the component that the image will be drawn onto.
 	public void draw(Graphics g, Component c) {
-        image.paintIcon(c, g, x_coordinate, y_coordinate);
+        image.paintIcon(c, g, (int)x_coordinate, (int)y_coordinate);
     }
 }

@@ -47,11 +47,11 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		enemies = new ArrayList<>();
 		attack=false;
 		trees=new ArrayList<>();
-		trees.add(new Character(5,200,300,0,50));
-		trees.add(new Character(5,53,300,0,50));
-		trees.add(new Character(5,653,300,0,50));
-		trees.add(new Character(5,431,300,0,50));
-		trees.add(new Character(5,300,300,0,50));
+		trees.add(new Character(5,500,300,0,50));
+		trees.add(new Character(5,853,600,0,50));
+		//trees.add(new Character(5,653,300,0,50));
+		//trees.add(new Character(5,431,300,0,50));
+		//trees.add(new Character(5,300,300,0,50));
 
 
 		setPreferredSize(new Dimension(1024,700));   // Set these dimensions to the width 
@@ -111,55 +111,51 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public void clock(){
 		timeCount += 1;
 
-		if(moving && speed < 2){
-			speed += .05;
-		}
-		else if(moving == false && speed > 0){
-			speed -= .05;
-		}
-
-
 		if(direction == 0 && background_x <= 0 && player.getX() == 450){
 			background_x += speed;
 			for(Character i:enemies){
 				i.setX((int)(i.getX() + speed));
+			}
+			for(Character t: trees){
+				t.setX((t.getX() + speed));
 			}
 		}else if(direction == 1 && background_x > -3954 && player.getX() == 450){
 			background_x -= speed;
 			for(Character i:enemies){
 				i.setX((int)(i.getX() - speed));
 			}
+			for(Character t: trees){
+				t.setX((t.getX() - speed));
+			}
 		}else if(direction == 2  && background_y < 685 && player.getY() == 288){
 			background_y += speed;
 			for(Character i:enemies){
-				i.setY((int)(i.getY() + speed));
+				i.setY((i.getY() + speed));
+			}
+			for(Character t: trees){
+				t.setY((t.getY() + speed));
 			}
 		}else if(direction == 3  && background_y > -3584 && player.getY() == 288){
 			background_y -= speed;
 			for(Character i:enemies){
 				i.setY((int)(i.getY() - speed));
 			}
-
-			
-
-
-
-
-
-
+			for(Character t: trees){
+				t.setY((t.getY() - speed));
+			}
 			}else{
 				player.keyPressedMove(direction);
 			}
-
-			this.repaint();
-
 			if(moving && speed < 2){
 				speed += .05;
+			
 			}
 			else if(moving == false && speed > 0){
 				speed -= .05;
 			}
 
+			
+			
 			if(timeCount%2 == 0){
 				for(Character zomb:enemies){
 					zomb.timerMove();
@@ -176,7 +172,12 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			if(player.getHealth()<=0){
 				System.out.println(player.getHealth());
 			}
-		}
+			
+			
+			
+			
+			this.repaint();
+	}
 
 
 		//this.repaint();

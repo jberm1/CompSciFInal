@@ -3,13 +3,19 @@ public class Weapon {
 
 private int health;
 private int hitValue;
+private int x_coordinate;
+private int y_coordinate;
+private int speed;
+private int type;
 
 public Weapon(){
-	this(30,10);
+	this(40, 450, 288, 1);
 }
-public Weapon(int health, int hitValue){
+public Weapon(int health, int x_coordinate, int y_coordinate, int type){
 	this.health=health;
-	this.hitValue=hitValue;
+	this.x_coordinate = x_coordinate;
+	this.y_coordinate = y_coordinate;
+	this.type = type;
 }
 
 //
@@ -30,11 +36,19 @@ public void setHealth(int health) {
 	this.health = health;
 }
 
+public void setSpeed(int speed){
+	this.speed = speed;
+}
+
 public void checkHealth(){
 	health--;
 	if(health<=0){
 		this.setHitValue(0);
 	}
+}
+
+public void shoot(){
+	
 }
 
 }
