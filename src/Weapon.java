@@ -29,7 +29,7 @@ public Weapon(int health, int x_coordinate, int y_coordinate, int type, int dire
 	ClassLoader cldr = this.getClass().getClassLoader();	// These eight lines of code load the Character's png
 	String imagePath;	
 
-	imagePath = "images/bullet.png";
+	imagePath = "images/bullets.png";
 
 	URL imageURL = cldr.getResource(imagePath);				
     image = new ImageIcon(imageURL);
