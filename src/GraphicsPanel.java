@@ -26,8 +26,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private Timer t;								 // The timer is used to move objects at a consistent time interval.
 	private Character player;					 // A spaceship
 	private Character zombie;						     // A zombie 
-	private int background_y;
-	private int background_x;
+	private double background_y;
+	private double background_x;
 	public int direction;
 	public double speed;
 	public boolean moving;
@@ -42,7 +42,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	{
 		moving = false;
 		speed = 1;
-		direction = -1;
+		direction = 2;
 		background_y = 0;
 		background_x = 0;
 		enemies = new ArrayList<>();
@@ -88,9 +88,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		image.paintIcon(this, g2, 0, 0);
 
 		ImageIcon background1Image = new ImageIcon(imageURL);	// Two ImageIcon's are used to scroll the background.
-		background1Image.paintIcon(this, g2, background_x, background_y);
+		background1Image.paintIcon(this, g2, (int)background_x, (int)background_y);
 		ImageIcon background2Image = new ImageIcon(imageURL);
-		background2Image.paintIcon(this, g2, background_x, background_y-700);
+		background2Image.paintIcon(this, g2, (int)background_x, (int)background_y-700);
 
 
 		//if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
@@ -124,6 +124,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			}
 			for(Character t: trees){
 				t.setX( (t.getX() + speed));
+			
 			}
 		}else if(direction == 1 && background_x > -3954 && player.getX() == 450){
 			background_x -= speed;
@@ -152,6 +153,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			}else{
 				player.keyPressedMove(direction);
 			}
+			
 			if(moving && speed < 2){
 				speed += .05;
 			
@@ -220,7 +222,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			player.setChoice(3);
 			break;
 		case KeyEvent.VK_SPACE:
-			bullets.add(new Weapon(30, 450, 288,1,direction));
+			bullets.add(new Weapon(30, 500, 288,1,direction));
 			break;
 		}
 		this.repaint();
