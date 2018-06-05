@@ -35,6 +35,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private ArrayList<Character> trees;
 	private double timeCount;
 	private boolean attack;
+	public boolean touch;
 
 	private ArrayList<Weapon> bullets;
 
@@ -126,6 +127,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			for(Character t: trees){
 				t.setX( (t.getX() + speed));
 			}
+			for(Weapon s: bullets){
+				s.setX(s.getX() + speed);
+			}
 		}else if(direction == 1 && background_x > -3954 && player.getX() == 450){
 			background_x -= speed;
 			for(Character i:enemies){
@@ -133,6 +137,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			}
 			for(Character t: trees){
 				t.setX((t.getX() - speed));
+			}
+			for(Weapon s: bullets){
+				s.setX(s.getX() - speed);
 			}
 		}else if(direction == 2  && background_y < 685 && player.getY() == 288){
 			background_y += speed;
@@ -142,6 +149,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			for(Character t: trees){
 				t.setY((t.getY() + speed));
 			}
+			for(Weapon s: bullets){
+				s.setY(s.getY() + speed);
+			}
 		}else if(direction == 3  && background_y > -3584 && player.getY() == 288){
 			background_y -= speed;
 			for(Character i:enemies){
@@ -149,6 +159,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			}
 			for(Character t: trees){
 				t.setY((t.getY() - speed));
+			}
+			for(Weapon s: bullets){
+				s.setY(s.getY() - speed);
 			}
 		}else{
 			player.keyPressedMove(direction);
@@ -184,12 +197,20 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		for(Weapon s: bullets){
 			s.shoot();
 		}
+		
+//		for(int i =  bullets.size(); i > 0; i--){
+//			if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
+//				bullets.remove(bullets.get(i));
+//			}
+		//}
 		for(Character tree:trees){
 			if(player.getBounds().intersects(tree.getBounds())){
-				speed = 0;
+				touch = true;
 			}
 
 
+			
+			
 			this.repaint();
 		}
 	}
@@ -236,8 +257,21 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		moving = false;
+	public void keyReleased(KeyEvent h) {
+		switch(h.getKeyCode()){
+		case KeyEvent.VK_LEFT:
+			moving = false;
+			break;
+		case KeyEvent.VK_RIGHT:
+			moving = false;
+			break;
+		case KeyEvent.VK_UP:
+			moving = false;
+			break;
+		case KeyEvent.VK_DOWN:
+			moving = false;
+			break;
+		}
 		//speed = 0;
 		//direction = -1;
 	}

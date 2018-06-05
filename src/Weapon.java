@@ -9,17 +9,17 @@ public class Weapon {
 
 private int health;
 private int hitValue;
-private int x_coordinate;
-private int y_coordinate;
+private double x_coordinate;
+private double y_coordinate;
 private ImageIcon image;
-private int speed;
+private double speed;
 private int type;
 private int direction;
 
 public Weapon(){
 	this(40, 450, 288, 1,1);
 }
-public Weapon(int health, int x_coordinate, int y_coordinate, int type, int direction){
+public Weapon(int health, double x_coordinate, double y_coordinate, int type, int direction){
 	this.health=health;
 	this.x_coordinate = x_coordinate;
 	this.y_coordinate = y_coordinate;
@@ -36,6 +36,21 @@ public Weapon(int health, int x_coordinate, int y_coordinate, int type, int dire
 }
 
 //
+public double getX(){
+	return x_coordinate;
+}
+
+public double getY(){
+	return y_coordinate;
+}
+
+public void setX(double x_coordinate){
+	this.x_coordinate = x_coordinate;
+}
+
+public void setY(double y_coordinate){
+	this.y_coordinate = y_coordinate;
+}
 
 public int getHitValue() {
 	return hitValue;
@@ -66,13 +81,13 @@ public void checkHealth(){
 
 public void shoot(){
 	if(direction == 0){
-		x_coordinate--;
+		x_coordinate-=3;
 	}else if(direction == 1){
-		x_coordinate++;
+		x_coordinate+=3;
 	}else if(direction == 2){
-		y_coordinate--;
+		y_coordinate-=3;
 	}else if(direction == 3){
-		y_coordinate ++;
+		y_coordinate +=3;
 	}
 }
 
