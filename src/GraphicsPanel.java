@@ -36,6 +36,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private double timeCount;
 	private boolean attack;
 	public boolean touch;
+	public int bDirection;
 
 	private ArrayList<Weapon> bullets;
 
@@ -65,7 +66,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
 		// action performed method every 5 milliseconds once the 
 		enemies.add(new Character(3, 1150, 50,1.5,100));											 // timer is started. You can change how frequently this
-		enemies.add(new Character(3, 500, 1500,2,50));												 // method is called by changing the first parameter.
+		enemies.add(new Character(3, 500, 1500,1,50));												 // method is called by changing the first parameter.
 
 		player.setHealth(100);
 
@@ -232,25 +233,29 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		case KeyEvent.VK_LEFT:
 			moving = true;
 			direction = 0;
+			bDirection = 0;
 			player.setChoice(1);
 			break;
 		case KeyEvent.VK_RIGHT:
 			moving = true;
 			direction = 1;
+			bDirection = 1;
 			player.setChoice(2);
 			break;
 		case KeyEvent.VK_UP:
 			moving = true;
 			direction = 2;
+			bDirection = 2;
 			player.setChoice(0);
 			break;
 		case KeyEvent.VK_DOWN:
 			moving = true;
 			direction = 3;
+			bDirection = 3;
 			player.setChoice(3);
 			break;
 		case KeyEvent.VK_SPACE:
-			bullets.add(new Weapon(30, 500, 288,1,direction));
+			bullets.add(new Weapon(30, 500, 288,1,bDirection));
 			break;
 		}
 		this.repaint();
@@ -261,19 +266,23 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		switch(h.getKeyCode()){
 		case KeyEvent.VK_LEFT:
 			moving = false;
+			direction = -1;
 			break;
 		case KeyEvent.VK_RIGHT:
 			moving = false;
+			direction = -1;
 			break;
 		case KeyEvent.VK_UP:
 			moving = false;
+			direction = -1;
 			break;
 		case KeyEvent.VK_DOWN:
 			moving = false;
+			direction = -1;
 			break;
 		}
 		//speed = 0;
-		//direction = -1;
+		
 	}
 
 	@Override
