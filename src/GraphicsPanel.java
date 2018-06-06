@@ -121,6 +121,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public void clock(){
 		timeCount += 1;
 
+		
 		if(direction == 0 && background_x <= 0 && player.getX() == 450){
 			background_x += speed;
 			for(Character i:enemies){
@@ -169,8 +170,14 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			player.keyPressedMove(direction);
 		}
 
+		
+		for(Weapon s: bullets){
+			if(s.getSpeed()>0)
+			s.setSpeed(s.getSpeed()*.98);
+		}
+		
 		if(moving && speed < 2){
-			speed += .05;
+			speed += .5;
 
 		}
 		else if(moving == false && speed > 0){
@@ -256,7 +263,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			player.setChoice(3);
 			break;
 		case KeyEvent.VK_SPACE:
-			bullets.add(new Weapon(30, 500, 288,1,bDirection));
+			bullets.add(new Weapon(30, 500, 288,1,bDirection,5));
 			break;
 		}
 		this.repaint();

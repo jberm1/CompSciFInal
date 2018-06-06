@@ -17,15 +17,16 @@ private int type;
 private int direction;
 
 public Weapon(){
-	this(40, 450, 288, 1,1);
+	this(40, 450, 288, 1,1,3);
 }
-public Weapon(int health, double x_coordinate, double y_coordinate, int type, int direction){
+public Weapon(int health, double x_coordinate, double y_coordinate, int type, int direction, double speed){
 	this.health=health;
 	this.x_coordinate = x_coordinate;
 	this.y_coordinate = y_coordinate;
 	this.type = type;
 	this.direction = direction;
-
+	this.speed = speed;
+	
 	ClassLoader cldr = this.getClass().getClassLoader();	// These eight lines of code load the Character's png
 	String imagePath;	
 
@@ -72,8 +73,12 @@ public void setHealth(int health) {
 	this.health = health;
 }
 
-public void setSpeed(int speed){
+public void setSpeed(double speed){
 	this.speed = speed;
+}
+
+public double getSpeed(){
+	return speed;
 }
 
 public void checkHealth(){
@@ -85,13 +90,13 @@ public void checkHealth(){
 
 public void shoot(){
 	if(direction == 0){
-		x_coordinate-=3;
+		x_coordinate-=speed;
 	}else if(direction == 1){
-		x_coordinate+=3;
+		x_coordinate+=speed;
 	}else if(direction == 2){
-		y_coordinate-=3;
+		y_coordinate-=speed;
 	}else if(direction == 3){
-		y_coordinate +=3;
+		y_coordinate +=speed;
 	}
 }
 
