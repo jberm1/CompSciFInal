@@ -44,6 +44,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	{
 		moving = false;
 		speed = 1;
+		bDirection = 2;
 		direction = 2;
 		background_y = 0;
 		background_x = 0;
