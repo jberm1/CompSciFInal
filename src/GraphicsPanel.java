@@ -66,10 +66,10 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 
 		t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
 		// action performed method every 5 milliseconds once the 
-		enemies.add(new Character(3, 1150, 50,1.5,100));											 // timer is started. You can change how frequently this
+		enemies.add(new Character(3, 1150, 50,1.5,50));											 // timer is started. You can change how frequently this
 		enemies.add(new Character(3, 500, 1500,1,50));												 // method is called by changing the first parameter.
 
-		player.setHealth(100);
+
 
 		t.start();
 		this.setFocusable(true);																		 // for keylistener
@@ -121,7 +121,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public void clock(){
 		timeCount += 1;
 
-		
+
 		if(direction == 0 && background_x <= 0 && player.getX() == 450){
 			background_x += speed;
 			for(Character i:enemies){
@@ -170,12 +170,12 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			player.keyPressedMove(direction);
 		}
 
-		
+
 		for(Weapon s: bullets){
 			if(s.getSpeed()>0)
-			s.setSpeed(s.getSpeed()*.98);
+				s.setSpeed(s.getSpeed()*.98);
 		}
-		
+
 		if(moving && speed < 2){
 			speed += .5;
 
@@ -183,6 +183,44 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		else if(moving == false && speed > 0){
 			speed -= .05;
 		}
+
+		for(int i=bullets.size()-1;i>=0;i--){
+			if(bullets.get(i).getSpeed()<=.1){
+
+				bullets.remove(i);
+			}
+		}
+
+		for(Weapon b:bullets){
+			for(Character c:enemies){
+				if(b.getBounds().intersects(c.getBounds())){
+					c.setHealth(c.getHealth()-15);
+					b.setSpeed(0);
+					System.out.println(c.getHealth());
+				}
+			}
+		}
+		for(int i=enemies.size()-1;i>=0;i--){
+			if(enemies.get(i).getHealth()<=0){
+				enemies.remove(i);
+			}
+		}
+
+		//		for(int o=bullets.size()-1;o>0;o--){
+		//			for(int n=enemies.size()-1;n>1;n--){
+		//				if(bullets.get(o).getBounds().intersects(enemies.get(0).getBounds())){
+		//					enemies.get(0).setHealth(enemies.get(0).getHealth()-15);
+		//					System.out.println(enemies.get(o).getHealth());
+		//
+		//				}
+		//				if(bullets.get(o).getBounds().intersects(enemies.get(n).getBounds())){
+		////					bullets.remove(o);
+		//					enemies.get(o).setHealth(enemies.get(o).getHealth()-15);
+		//					System.out.println(enemies.get(o).getHealth());
+		//				}
+		//			}
+		//		}
+
 
 
 
@@ -206,11 +244,11 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		for(Weapon s: bullets){
 			s.shoot();
 		}
-		
-//		for(int i =  bullets.size(); i > 0; i--){
-//			if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
-//				bullets.remove(bullets.get(i));
-//			}
+
+		//		for(int i =  bullets.size(); i > 0; i--){
+		//			if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
+		//				bullets.remove(bullets.get(i));
+		//			}
 		//}
 		for(Character tree:trees){
 			if(player.getBounds().intersects(tree.getBounds())){
@@ -218,8 +256,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			}
 
 
-			
-			
+
+
 			this.repaint();
 		}
 	}
@@ -290,7 +328,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			break;
 		}
 		//speed = 0;
-		
+
 	}
 
 	@Override

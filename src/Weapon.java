@@ -1,5 +1,6 @@
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -103,4 +104,9 @@ public void shoot(){
 public void draw(Graphics g, Component c) {
     image.paintIcon(c, g, (int)x_coordinate, (int)y_coordinate);
 }
+
+public Rectangle getBounds(){
+	return new Rectangle((int)x_coordinate, (int)y_coordinate, image.getIconWidth(), image.getIconHeight());
+}
+
 }

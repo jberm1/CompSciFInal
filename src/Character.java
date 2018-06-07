@@ -66,6 +66,7 @@ public class Character {
         this.x_coordinate = x_coordinate;						// Initial coordinates for the Character.
         this.y_coordinate = y_coordinate;  
         this.speed = speed;
+        this.health=health;
 	}
 	
 	/**
