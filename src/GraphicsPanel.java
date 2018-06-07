@@ -121,6 +121,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public void clock(){
 		timeCount += 1;
 
+		if(enemies.size() == 0){
+			enemies.add(new Character(3, 500, 1500,1,50));
+		}
 
 		if(direction == 0 && background_x <= 0 && player.getX() == 450){
 			background_x += speed;
@@ -185,7 +188,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		}
 
 		for(int i=bullets.size()-1;i>=0;i--){
-			if(bullets.get(i).getSpeed()<=.1){
+			if(bullets.get(i).getSpeed()<=1){
 
 				bullets.remove(i);
 			}
@@ -300,9 +303,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			bDirection = 3;
 			player.setChoice(3);
 			break;
-		case KeyEvent.VK_SPACE:
-			bullets.add(new Weapon(30, 500, 288,1,bDirection,5));
-			break;
+//		case KeyEvent.VK_SPACE:
+//			bullets.add(new Weapon(30, 500, 288,1,bDirection,5));
+//			break;
 		}
 		this.repaint();
 	}
@@ -326,6 +329,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			moving = false;
 			direction = -1;
 			break;
+		case KeyEvent.VK_SPACE:
+			bullets.add(new Weapon(30, 500, 288,1,bDirection,10));
+			break;
 		}
 		//speed = 0;
 
@@ -333,6 +339,9 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
+		switch(e.getKeyCode()){
+		
+			
+		}
 	}
 }

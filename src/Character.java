@@ -56,7 +56,7 @@ public class Character {
 			imagePath = "images/player1Right.png";
 		}
 		else if(imageChoice==3){
-			imagePath = "images/UFO.png";
+			imagePath = "images/zombie.png";
 		}
 		else
 			imagePath="images/tree.png";
