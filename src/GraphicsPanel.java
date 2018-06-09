@@ -122,7 +122,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		timeCount += 1;
 
 		if(enemies.size() == 0){
-			enemies.add(new Character(3, 500, 1500,1,50));
+			enemies.add(new Character(3, (int)(500+background_x), (int)(1500+background_y),1,50));
 		}
 
 		if(direction == 0 && background_x <= 0 && player.getX() == 450){
