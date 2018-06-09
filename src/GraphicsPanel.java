@@ -53,7 +53,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		trees=new ArrayList<>();
 		for(int i=0;i<100;i++){
 
-			trees.add(new Character(5,(int)(Math.random()*4000)+500,(int)(Math.random()*4000)+1,0,50));
+			trees.add(new Character(20,(int)(Math.random()*4000)+500,(int)(Math.random()*4000)+1,0,50));
 		}
 
 
@@ -194,15 +194,7 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			}
 		}
 
-		for(Weapon b:bullets){
-			for(Character c:enemies){
-				if(b.getBounds().intersects(c.getBounds())){
-					c.setHealth(c.getHealth()-15);
-					b.setSpeed(0);
-					System.out.println(c.getHealth());
-				}
-			}
-		}
+	
 		for(int i=enemies.size()-1;i>=0;i--){
 			if(enemies.get(i).getHealth()<=0){
 				enemies.remove(i);
@@ -232,6 +224,33 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 				zomb.timerMove();
 			}
 		}
+		
+		for(Weapon b:bullets){
+			for(Character c:enemies){
+				if(b.getBounds().intersects(c.getBounds())){
+					c.setHealth(c.getHealth()-15);
+					b.setSpeed(0);
+					if(c.getDirection() == 4){
+						c.setChoice(8);
+						this.repaint();
+					}
+					if(c.getDirection()==1){
+						c.setChoice(9);
+						this.repaint();
+					}
+					if(c.getDirection()==2){
+						c.setChoice(10);
+						this.repaint();
+					}
+					if(c.getDirection()==3){
+						c.setChoice(11);
+						this.repaint();
+					}
+					System.out.println(c.getChoice());
+				}
+			}
+		}
+		
 		if(timeCount%100==0){
 			for(Character zomb:enemies){
 				if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
@@ -248,17 +267,24 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			s.shoot();
 		}
 
-		//		for(int i =  bullets.size(); i > 0; i--){
-		//			if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
-		//				bullets.remove(bullets.get(i));
-		//			}
-		//}
+//				for(int i =  bullets.size(); i > 0; i--){
+//					if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
+//						bullets.remove(bullets.get(i));
+//					}
+//		}
 		for(Character tree:trees){
 			if(player.getBounds().intersects(tree.getBounds())){
 				touch = true;
 			}
 
-
+//		for(Character c:enemies){
+//			if(c.getX() < player.getX() && (c.getY() == player.getY() +20 || c.getY() ==player.getY()-20) ){
+//				c.setChoice(5);
+//			}
+//			if((c.getX()== player.getX()+20 || c.getX() == player.getX()-20) && c.getY() < player.getY()){
+//				c.setChoice(7);
+//			}
+//		}
 
 
 			this.repaint();
@@ -330,7 +356,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			direction = -1;
 			break;
 		case KeyEvent.VK_SPACE:
-			bullets.add(new Weapon(30, 500, 288,1,bDirection,10));
+			
+			bullets.add(new Weapon(30, 500, 344,1,bDirection,10));
 			break;
 		}
 		//speed = 0;

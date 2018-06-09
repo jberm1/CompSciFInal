@@ -20,7 +20,8 @@ public class Character {
 										// in the constructor.
 	
 	private double x_coordinate;			// These ints will be used for the drawing the png on the graphics panel.
-	private double y_coordinate;			// When the Character's move method is called you should update one or both
+	private double y_coordinate;
+	private int Direction;									// When the Character's move method is called you should update one or both
 										// of these instance variables.  (0,0) is the top left hand corner of the
 										// panel.  x increases as you move to the right, y increases as you move
 										// down.
@@ -57,6 +58,15 @@ public class Character {
 		}
 		else if(imageChoice==3){
 			imagePath = "images/zombie.png";
+		}
+		else if(imageChoice==4){
+			imagePath = "images/zombieRight.png";
+		}
+		else if(imageChoice==5){
+			imagePath = "images/zombieLeft.png";
+		}
+		else if(imageChoice==6){
+			imagePath = "images/zombieDown.png";
 		}
 		else
 			imagePath="images/tree.png";
@@ -139,6 +149,38 @@ public class Character {
 			imageVal =3;
 			imagePath="images/player1Back.png";
 		}
+		else if(imageChoice == 4){
+			imageVal =4;
+			imagePath="images/zombie.png";
+		}
+		else if(imageChoice == 5){
+			imageVal =5;
+			imagePath="images/ZombieRight.png";
+		}
+		else if(imageChoice == 6){
+			imageVal =6;
+			imagePath="images/ZombieLeft.png";
+		}
+		else if(imageChoice == 7){
+			imageVal = 7;
+			imagePath="images/ZombieDown.png";
+		}
+		else if(imageChoice == 8){
+			imageVal = 8;
+			imagePath="images/ZombieUshot.png";
+		}
+		else if(imageChoice == 9){
+			imageVal = 9;
+			imagePath="images/ZombieRshot.png";
+		}
+		else if(imageChoice == 10){
+			imageVal = 10;
+			imagePath="images/ZombieLshot.png";
+		}
+		else if(imageChoice == 11){
+			imageVal = 11;
+			imagePath="images/ZombieDshot.png";
+		}
 		else{
 			imageVal = -1;
 			imagePath= "images/UFO.png";
@@ -152,6 +194,9 @@ public class Character {
 		return imageVal;
 	}
 	
+	public int getDirection(){
+		return Direction;
+	}
 	// method: keyPressedMove
 	// description: This method should modify the Character's x or y (or perhaps both) coordinates.  When the 
 	//				graphics panel is repainted the Character will then be drawn in it's new location.
@@ -180,24 +225,35 @@ public class Character {
 	public void timerMove(){
 		double differenceX=Math.abs(this.getX()-450);
 		double differenceY=Math.abs(this.getY()-350);
-		
+		ClassLoader cldr = this.getClass().getClassLoader();	// These eight lines of code load the Character's png
+		String imagePath = "images/zombie.png";
 		
 //		System.out.println(differenceX);
 //		System.out.println(differenceY);
 		
-		if(this.x_coordinate<450&&differenceX<600&&differenceY<600){
+		if(this.x_coordinate<=450&&differenceX<600&&differenceY<600){
 			this.x_coordinate+= speed;
+			Direction = 1;
+			imagePath = "images/ZombieRight.png";
 		}
-		if(this.x_coordinate>450&&differenceX<600&&differenceY<600){
+		if(this.x_coordinate>=470&&differenceX<600&&differenceY<600){
 			this.x_coordinate-=speed;
+			Direction = 2;
+			imagePath = "images/ZombieLeft.png";
 		}
 		if(this.y_coordinate<320&&differenceY<600&&differenceX<600){
 			this.y_coordinate+=speed;
+			Direction = 3;
+			imagePath = "images/ZombieDown.png";
 		}
-		if(this.y_coordinate>320&&differenceY<600&&differenceX<600){
+		if(this.y_coordinate>330&&differenceY<600&&differenceX<600){
 			this.y_coordinate-=speed;
-		
+			Direction =4;
+			imagePath = "images/zombie.png";
 		}
+		
+		URL imageURL = cldr.getResource(imagePath);				
+		image = new ImageIcon(imageURL);
 	}
 	
 	// method: draw
