@@ -236,6 +236,7 @@ public class Character {
 		
 //		System.out.println(differenceX);
 //		System.out.println(differenceY);
+		//sfda
 		
 		if(this.x_coordinate<=450&&differenceX<600&&differenceY<600){
 			this.x_coordinate+= speed;
