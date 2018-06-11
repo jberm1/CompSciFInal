@@ -68,10 +68,12 @@ public class Character {
 			imagePath = "images/zombieLeft.png";
 		}
 		else if(imageChoice==6){
-			imagePath = "images/zombieDown.png";
+			imagePath = "images/tree.png";
+		
 		}
 		else
-			imagePath="images/tree.png";
+			imagePath="images/zombieDown.png";
+		
 		URL imageURL = cldr.getResource(imagePath);				
 		image = new ImageIcon(imageURL);						
 
@@ -114,32 +116,44 @@ public class Character {
 	//				return true if the two rectangles overlap, false if they do not.
 	// return: A Rectangle - This rectangle would be like drawing a rectangle around the Character's image.
 	public Rectangle getBounds(){
-		ArrayList<Rectangle> a=new ArrayList();
-		if(this.imageVal == 0){	
-			Rectangle r= new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
-			a.add(r);
-		}
-		else if(this.imageVal ==1){
-			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
-			a.add(r);
-		}
-		else if(this.imageVal==2){
-			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
-			a.add(r);
-		}
-		else if(this.imageVal==3){
-			Rectangle r= new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
-			a.add(r);
-		}
-		else if(this.imageVal==4){
-			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
-			a.add(r);
-		}			
-		else{
-			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
-			a.add(r);
-		}
-		return a.get(0);
+		
+			return new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth()-40, image.getIconHeight()-40);
+		
+			
+//		ArrayList<Rectangle> a=new ArrayList();
+//		if(this.imageVal == 0){	
+//			Rectangle r= new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+//			a.add(r);
+//		}
+//		else if(this.imageVal ==1){
+//			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+//			a.add(r);
+//		}
+//		else if(this.imageVal==2){
+//			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+//			a.add(r);
+//		}
+//		else if(this.imageVal==3){
+//			Rectangle r= new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+//			a.add(r);
+//		}
+//		else if(this.imageVal==4){
+//			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+//			a.add(r);
+//		}
+//		else if(this.imageVal==5){
+//			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+//			a.add(r);
+//		}
+//		else if(this.imageVal==6){
+//			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+//			a.add(r);
+//		}
+//		else{
+//			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth()-100, image.getIconHeight()-100);
+//			a.add(r);
+//		}
+//		return a.get(0);
 	}
 
 	// method: getX
