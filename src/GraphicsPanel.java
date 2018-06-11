@@ -8,7 +8,9 @@
 //
 // Since you will modify this class you should add comments that describe when and how you modified the class.  
 //////
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -37,11 +39,13 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	private boolean attack;
 	public boolean touch;
 	public int bDirection;
+	public int ammo;
 
 	private ArrayList<Weapon> bullets;
 
 	public GraphicsPanel()
 	{
+		ammo = 12;
 		moving = false;
 		speed = 1;
 		bDirection = 2;
@@ -95,23 +99,28 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 		ImageIcon background2Image = new ImageIcon(imageURL);
 		background2Image.paintIcon(this, g2, (int)background_x, (int)background_y-700);
 
-
+		
 
 		//if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 		// collided.  Make something happen if they do intersect.
 		//	}
 
-
-		player.draw(g2, this);
 		for(Weapon s : bullets){
 			s.draw(g2, this);
 		}
+
+		player.draw(g2, this);
+		
 		for(Character e : enemies){
 			e.draw(g2, this);
 		}
 		for(Character t:trees){
 			t.draw(g2, this);
 		}
+	
+		g2.setFont(new Font("Zapfino", 0, 30));
+		g2.setColor(Color.WHITE);
+		g2.drawString(" " + (int)ammo + "/12", 820, 690);
 	}
 
 	// method:clock
@@ -356,8 +365,13 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 			direction = -1;
 			break;
 		case KeyEvent.VK_SPACE:
-			
+			if(ammo >0){
 			bullets.add(new Weapon(30, 500, 344,1,bDirection,10));
+			ammo--;
+			}
+			break;
+		case KeyEvent.VK_R:
+			ammo =12;
 			break;
 		}
 		//speed = 0;
