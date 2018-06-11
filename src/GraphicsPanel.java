@@ -59,7 +59,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		enemies = new ArrayList<>();
 		attack=false;
 		trees=new ArrayList<>();
-		difficulty=8;
+		difficulty=5;
 		for(int i=0;i<100;i++){
 
 			trees.add(new Character(20,(int)(Math.random()*4000)+500,(int)(Math.random()*4000)+1,0,50));
