@@ -98,7 +98,7 @@ public class Character {
 	public double getSpeed(){
 		return this.speed;
 	}
-
+//sdsad
 	// method: getBounds
 	// description: This method will return the coordinates of a rectangle that would be drawn around the 
 	// 				Character's png.  This rectangle can be used to check to see if the Character bumps into 
