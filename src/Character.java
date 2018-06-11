@@ -231,22 +231,22 @@ public class Character {
 //		System.out.println(differenceX);
 //		System.out.println(differenceY);
 		
-		if(this.x_coordinate<=450&&differenceX<600&&differenceY<600){
+		if(this.x_coordinate<=450){
 			this.x_coordinate+= speed;
 			Direction = 1;
 			imagePath = "images/ZombieRight.png";
 		}
-		if(this.x_coordinate>=470&&differenceX<600&&differenceY<600){
+		if(this.x_coordinate>=470){
 			this.x_coordinate-=speed;
 			Direction = 2;
 			imagePath = "images/ZombieLeft.png";
 		}
-		if(this.y_coordinate<320&&differenceY<600&&differenceX<600){
+		if(this.y_coordinate<320){
 			this.y_coordinate+=speed;
 			Direction = 3;
 			imagePath = "images/ZombieDown.png";
 		}
-		if(this.y_coordinate>330&&differenceY<600&&differenceX<600){
+		if(this.y_coordinate>330){
 			this.y_coordinate-=speed;
 			Direction =4;
 			imagePath = "images/zombie.png";

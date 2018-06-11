@@ -41,6 +41,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 	public boolean touch;
 	public int bDirection;
 	public int ammo;
+	private int difficulty;
 	
 	AudioClip shot, walk, reload;
 
@@ -48,7 +49,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 
 	public GraphicsPanel()
 	{
-		ammo = 12;
+		ammo = 100;
 		moving = false;
 		speed = 1;
 		bDirection = 2;
@@ -58,6 +59,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		enemies = new ArrayList<>();
 		attack=false;
 		trees=new ArrayList<>();
+		difficulty=8;
 		for(int i=0;i<100;i++){
 
 			trees.add(new Character(20,(int)(Math.random()*4000)+500,(int)(Math.random()*4000)+1,0,50));
@@ -73,8 +75,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 
 		t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
 		// action performed method every 5 milliseconds once the 
-		enemies.add(new Character(3, 1150, 50,1.5,50));											 // timer is started. You can change how frequently this
-		enemies.add(new Character(3, 500, 1500,1,50));												 // method is called by changing the first parameter.
+												 // method is called by changing the first parameter.
 
 
 
@@ -124,6 +125,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		g2.setFont(new Font("Zapfino", 0, 30));
 		g2.setColor(Color.WHITE);
 		g2.drawString(" " + (int)ammo + "/12", 820, 690);
+		g2.drawString(" "+enemies.size(),900 , 660);
 	}
 
 	// method:clock
@@ -133,9 +135,9 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 	public void clock(){
 		timeCount += 1;
 
-		if(enemies.size() == 0){
-			enemies.add(new Character(3, (int)(500+background_x), (int)(1500+background_y),1,50));
-		}
+//		if(enemies.size() == 0){
+//			enemies.add(new Character(3, (int)(500+background_x), (int)(1500+background_y),1,50));
+//		}
 
 		if(direction == 0 && background_x <= 0 && player.getX() == 450){
 			background_x += speed;
@@ -212,6 +214,14 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 				enemies.remove(i);
 			}
 		}
+		if(enemies.size()==0&&timeCount%1000==0){
+			for(int i=0;i<difficulty;i++){
+				enemies.add(new Character(20,(int)(Math.random()*4000)+500,(int)(Math.random()*4000)+1,1,50));		
+			}
+				difficulty+=(int)(Math.random()*5)+1;
+			
+		}
+		
 
 		//		for(int o=bullets.size()-1;o>0;o--){
 		//			for(int n=enemies.size()-1;n>1;n--){
@@ -258,11 +268,13 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 						c.setChoice(11);
 						this.repaint();
 					}
-					System.out.println(c.getChoice());
+//					System.out.println(c.getChoice());
 				}
 			}
 		}
-		
+		if(timeCount%100==0){
+			System.out.println(enemies.size());
+		}
 		if(timeCount%100==0){
 			for(Character zomb:enemies){
 				if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
