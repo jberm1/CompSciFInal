@@ -42,7 +42,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 	public int bDirection;
 	public int ammo;
 	private int difficulty;
-	
+
 	AudioClip shot, walk, reload;
 
 	private ArrayList<Weapon> bullets;
@@ -75,7 +75,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 
 		t = new Timer(5, new ClockListener(this));   // t is a timer.  This object will call the ClockListener's
 		// action performed method every 5 milliseconds once the 
-												 // method is called by changing the first parameter.
+		// method is called by changing the first parameter.
 
 
 
@@ -103,7 +103,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		ImageIcon background2Image = new ImageIcon(imageURL);
 		background2Image.paintIcon(this, g2, (int)background_x, (int)background_y-700);
 
-		
+
 
 		//if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 		// collided.  Make something happen if they do intersect.
@@ -114,14 +114,14 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		}
 
 		player.draw(g2, this);
-		
+
 		for(Character e : enemies){
 			e.draw(g2, this);
 		}
 		for(Character t:trees){
 			t.draw(g2, this);
 		}
-	
+
 		g2.setFont(new Font("Zapfino", 0, 30));
 		g2.setColor(Color.WHITE);
 		g2.drawString(" " + (int)ammo + "/12", 820, 690);
@@ -136,9 +136,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 	public void clock(){
 		timeCount += 1;
 
-//		if(enemies.size() == 0){
-//			enemies.add(new Character(3, (int)(500+background_x), (int)(1500+background_y),1,50));
-//		}
+
 
 		if(direction == 0 && background_x <= 0 && player.getX() == 450){
 			background_x += speed;
@@ -209,7 +207,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			}
 		}
 
-	
+
 		for(int i=enemies.size()-1;i>=0;i--){
 			if(enemies.get(i).getHealth()<=0){
 				enemies.remove(i);
@@ -219,10 +217,10 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			for(int i=0;i<difficulty;i++){
 				enemies.add(new Character(20,(int)(((Math.random()*4000)+500) + background_x),(int)(((Math.random()*4000)+1)+background_y),1,78));		
 			}
-				difficulty+=(int)(Math.random()*5)+1;
-			
+			difficulty+=(int)(Math.random()*5)+1;
+
 		}
-		
+
 
 		//		for(int o=bullets.size()-1;o>0;o--){
 		//			for(int n=enemies.size()-1;n>1;n--){
@@ -247,7 +245,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 				zomb.timerMove();
 			}
 		}
-		
+
 		for(Weapon b:bullets){
 			for(Character c:enemies){
 				if(b.getBounds().intersects(c.getBounds())){
@@ -269,7 +267,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 						c.setChoice(11);
 						this.repaint();
 					}
-//					System.out.println(c.getChoice());
+					//					System.out.println(c.getChoice());
 				}
 			}
 		}
@@ -292,28 +290,100 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			s.shoot();
 		}
 
-//				for(int i =  bullets.size(); i > 0; i--){
-//					if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
-//						bullets.remove(bullets.get(i));
-//					}
-//		}
+		//				for(int i =  bullets.size(); i > 0; i--){
+		//					if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
+		//						bullets.remove(bullets.get(i));
+		//					}
+		//		}
 		for(Character tree:trees){
 			if(player.getBounds().intersects(tree.getBounds())){
-				touch = true;
+
+				switch(direction){
+
+				case 0:
+					moving=false;
+					direction=-1;
+					moving = true;
+					direction = 1;
+					bDirection = 1;
+					player.setChoice(1);
+					break;
+
+				case 1:
+					moving=false;
+					direction=-1;
+					moving = true;
+					direction = 0;
+					bDirection = 0;
+					player.setChoice(2);
+					break;
+
+
+				case 2:
+					moving=false;
+					direction=-1;
+					moving = true;
+					direction = 3;
+					bDirection = 3;
+					player.setChoice(0);
+					break;
+				case 3:
+					moving=false;
+					direction=-1;
+					moving = true;
+					direction = 2;
+					bDirection = 2;
+					player.setChoice(3);
+					break;
+				}
 			}
-
-//		for(Character c:enemies){
-//			if(c.getX() < player.getX() && (c.getY() == player.getY() +20 || c.getY() ==player.getY()-20) ){
-//				c.setChoice(5);
-//			}
-//			if((c.getX()== player.getX()+20 || c.getX() == player.getX()-20) && c.getY() < player.getY()){
-//				c.setChoice(7);
-//			}
-//		}
-
-
-			this.repaint();
 		}
+		for(Character tree:trees){
+			for(Character zomb:enemies){
+				if(player.getBounds().intersects(tree.getBounds())){
+
+					switch(direction){
+
+					case 0:
+						zomb.setSpeed(0);
+						zomb.setSpeed(1);
+						
+						break;
+
+					case 1:
+						zomb.setSpeed(0);
+						zomb.setSpeed(1);
+						break;
+
+
+					case 2:
+						zomb.setSpeed(0);
+						zomb.setSpeed(1);
+						break;
+					case 3:
+						zomb.setSpeed(0);
+						zomb.setSpeed(1);
+						break;
+					}
+				}
+			}
+		}
+
+
+
+
+		//		for(Character c:enemies){
+		//			if(c.getX() < player.getX() && (c.getY() == player.getY() +20 || c.getY() ==player.getY()-20) ){
+		//				c.setChoice(5);
+		//			}
+		//			if((c.getX()== player.getX()+20 || c.getX() == player.getX()-20) && c.getY() < player.getY()){
+		//				c.setChoice(7);
+		//			}
+		//		}
+
+
+		this.repaint();
+
 	}
 
 
@@ -354,9 +424,9 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			bDirection = 3;
 			player.setChoice(3);
 			break;
-//		case KeyEvent.VK_SPACE:
-//			bullets.add(new Weapon(30, 500, 288,1,bDirection,5));
-//			break;
+			//		case KeyEvent.VK_SPACE:
+			//			bullets.add(new Weapon(30, 500, 288,1,bDirection,5));
+			//			break;
 		}
 		this.repaint();
 	}
@@ -382,8 +452,8 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			break;
 		case KeyEvent.VK_SPACE:
 			if(ammo >0){
-			bullets.add(new Weapon(30, 500, 344,1,bDirection,10));
-			ammo--;
+				bullets.add(new Weapon(30, 500, 344,1,bDirection,10));
+				ammo--;
 			}
 			break;
 		case KeyEvent.VK_R:
@@ -397,8 +467,8 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		switch(e.getKeyCode()){
-		
-			
+
+
 		}
 	}
 }

@@ -92,6 +92,12 @@ public class Character {
 	public void setHealth(int health) {
 		this.health = health;
 	}
+	public void setSpeed(int speed){
+		this.speed=speed;
+	}
+	public double getSpeed(){
+		return this.speed;
+	}
 
 	// method: getBounds
 	// description: This method will return the coordinates of a rectangle that would be drawn around the 
