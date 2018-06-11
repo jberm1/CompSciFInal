@@ -44,6 +44,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 	private boolean change;
 	private boolean shooting;
 	AudioClip shot, walk, reload;
+	private boolean gameOver;
 
 	private ArrayList<Weapon> bullets;
 
@@ -63,6 +64,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		attack=false;
 		trees=new ArrayList<>();
 		difficulty=5;
+		gameOver=false;
 		for(int i=0;i<100;i++){
 
 			trees.add(new Character(20,(int)(Math.random()*4000)+500,(int)(Math.random()*4000)+1,0,50));
@@ -106,7 +108,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		ImageIcon background2Image = new ImageIcon(imageURL);
 		background2Image.paintIcon(this, g2, (int)background_x, (int)background_y-700);
 
-		
+
 		//if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 		// collided.  Make something happen if they do intersect.
 		//	}
@@ -129,13 +131,20 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		g2.drawString(" " + (int)ammo + "/12", 820, 690);
 		g2.setColor(Color.RED);
 		g2.drawString(" "+enemies.size() + " Zombies",0 , 690);
-		if(ammo <= 4){
-		g2.setColor(Color.WHITE);	
 		g2.setFont(new Font("Zapfino", 0, 25));
-		g2.drawString("R To Reload",400 , 690);
+		g2.drawString(" "+player.getHealth(),450 , 270);
+		if(ammo <= 4){
+			g2.setColor(Color.WHITE);	
+			g2.setFont(new Font("Zapfino", 0, 25));
+			g2.drawString("R To Reload",400 , 690);
+
 		}
-		
-		
+		if(gameOver==true){
+			g2.setFont(new Font("Zapfino", 0, 300));
+			g2.drawString(" "+player.getHealth(),0 , 0);
+		}
+
+
 		if(change == true){
 			ClassLoader cldr1 = this.getClass().getClassLoader();	// These five lines of code load the background picture.
 			String imagePath1 = "images/blood.png";			// Change this line if you want to use a different 
@@ -152,7 +161,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		ImageIcon image1 = new ImageIcon(imageURL1);				// images directory.
 		image1.paintIcon(this, g2, 800,635);
 
-	
+
 	}
 
 	// method:clock
@@ -162,295 +171,299 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 	public void clock(){
 		timeCount += 1;
 
+		if(gameOver==true){
+
+			if(direction == 0 && background_x <= 0 && player.getX() == 450){
+				background_x += speed;
+				for(Character i:enemies){
+					i.setX((int)(i.getX() + speed));
+				}
+				for(Character t: trees){
+					t.setX( (t.getX() + speed));
+				}
+				for(Weapon s: bullets){
+					s.setX(s.getX() + speed);
+				}
+			}else if(direction == 1 && background_x > -3954 && player.getX() == 450){
+				background_x -= speed;
+				for(Character i:enemies){
+					i.setX((int)(i.getX() - speed));
+				}
+				for(Character t: trees){
+					t.setX((t.getX() - speed));
+				}
+				for(Weapon s: bullets){
+					s.setX(s.getX() - speed);
+				}
+			}else if(direction == 2  && background_y < 685 && player.getY() == 288){
+				background_y += speed;
+				for(Character i:enemies){
+					i.setY((i.getY() + speed));
+				}
+				for(Character t: trees){
+					t.setY((t.getY() + speed));
+				}
+				for(Weapon s: bullets){
+					s.setY(s.getY() + speed);
+				}
+			}else if(direction == 3  && background_y > -3584 && player.getY() == 288){
+				background_y -= speed;
+				for(Character i:enemies){
+					i.setY((int)(i.getY() - speed));
+				}
+				for(Character t: trees){
+					t.setY((t.getY() - speed));
+				}
+				for(Weapon s: bullets){
+					s.setY(s.getY() - speed);
+				}
+			}else{
+				player.keyPressedMove(direction);
+			}
 
 
-		if(direction == 0 && background_x <= 0 && player.getX() == 450){
-			background_x += speed;
-			for(Character i:enemies){
-				i.setX((int)(i.getX() + speed));
-			}
-			for(Character t: trees){
-				t.setX( (t.getX() + speed));
-			}
 			for(Weapon s: bullets){
-				s.setX(s.getX() + speed);
+				if(s.getSpeed()>0)
+					s.setSpeed(s.getSpeed()*.98);
 			}
-		}else if(direction == 1 && background_x > -3954 && player.getX() == 450){
-			background_x -= speed;
-			for(Character i:enemies){
-				i.setX((int)(i.getX() - speed));
+
+			if(moving && speed < 2){
+				speed += .5;
+
 			}
-			for(Character t: trees){
-				t.setX((t.getX() - speed));
+			else if(moving == false && speed > 0){
+				speed -= .05;
 			}
-			for(Weapon s: bullets){
-				s.setX(s.getX() - speed);
-			}
-		}else if(direction == 2  && background_y < 685 && player.getY() == 288){
-			background_y += speed;
-			for(Character i:enemies){
-				i.setY((i.getY() + speed));
-			}
-			for(Character t: trees){
-				t.setY((t.getY() + speed));
-			}
-			for(Weapon s: bullets){
-				s.setY(s.getY() + speed);
-			}
-		}else if(direction == 3  && background_y > -3584 && player.getY() == 288){
-			background_y -= speed;
-			for(Character i:enemies){
-				i.setY((int)(i.getY() - speed));
-			}
-			for(Character t: trees){
-				t.setY((t.getY() - speed));
-			}
-			for(Weapon s: bullets){
-				s.setY(s.getY() - speed);
-			}
-		}else{
-			player.keyPressedMove(direction);
-		}
 
+			for(int i=bullets.size()-1;i>=0;i--){
+				if(bullets.get(i).getSpeed()<=1){
 
-		for(Weapon s: bullets){
-			if(s.getSpeed()>0)
-				s.setSpeed(s.getSpeed()*.98);
-		}
-
-		if(moving && speed < 2){
-			speed += .5;
-
-		}
-		else if(moving == false && speed > 0){
-			speed -= .05;
-		}
-
-		for(int i=bullets.size()-1;i>=0;i--){
-			if(bullets.get(i).getSpeed()<=1){
-
-				bullets.remove(i);
-			}
-		}
-
-
-		for(int i=enemies.size()-1;i>=0;i--){
-			if(enemies.get(i).getHealth()<=0){
-				enemies.remove(i);
-			}
-		}
-		if(enemies.size()==0&&timeCount%1000==0){
-			round++;
-			change = true;
-			for(int i=0;i<difficulty;i++){
-				enemies.add(new Character(20,(int)(((Math.random()*4000)+500) + background_x),(int)(((Math.random()*4000)+1)+background_y),((Math.random()*22)/10),78));		
-			}
-			difficulty+=(int)(Math.random()*5)+1;
-
-		}
-
-		if(timeCount%1500==0 && change == true){
-			change = false;
-		}
-
-		//		for(int o=bullets.size()-1;o>0;o--){
-		//			for(int n=enemies.size()-1;n>1;n--){
-		//				if(bullets.get(o).getBounds().intersects(enemies.get(0).getBounds())){
-		//					enemies.get(0).setHealth(enemies.get(0).getHealth()-15);
-		//					System.out.println(enemies.get(o).getHealth());
-		//
-		//				}
-		//				if(bullets.get(o).getBounds().intersects(enemies.get(n).getBounds())){
-		////					bullets.remove(o);
-		//					enemies.get(o).setHealth(enemies.get(o).getHealth()-15);
-		//					System.out.println(enemies.get(o).getHealth());
-		//				}
-		//			}
-		//		}
-
-
-
-
-		if(timeCount%2 == 0){
-			for(Character zomb:enemies){
-				zomb.timerMove();
-			}
-		}
-
-		for(Weapon b:bullets){
-			for(Character c:enemies){
-				if(b.getBounds().intersects(c.getBounds())){
-					c.setHealth(c.getHealth()-15);
-					b.setSpeed(0);
-					if(c.getDirection() == 4){
-						c.setChoice(8);
-						this.repaint();
-					}
-					if(c.getDirection()==1){
-						c.setChoice(9);
-						this.repaint();
-					}
-					if(c.getDirection()==2){
-						c.setChoice(10);
-						this.repaint();
-					}
-					if(c.getDirection()==3){
-						c.setChoice(11);
-						this.repaint();
-					}
-					//					System.out.println(c.getChoice());
+					bullets.remove(i);
 				}
 			}
-		}
-		if(timeCount%100==0){
-			System.out.println(enemies.size());
-		}
-		if(timeCount%100==0){
-			for(Character zomb:enemies){
-				if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
-					player.setHealth(player.getHealth()-15);
+
+
+			for(int i=enemies.size()-1;i>=0;i--){
+				if(enemies.get(i).getHealth()<=0){
+					enemies.remove(i);
 				}
 			}
-		}
+			if(enemies.size()==0&&timeCount%1000==0){
+				round++;
+				change = true;
+				for(int i=0;i<difficulty;i++){
+					enemies.add(new Character(20,(int)(((Math.random()*4000)+500) + background_x),(int)(((Math.random()*4000)+1)+background_y),((Math.random()*22)/10),78));		
+				}
+				difficulty+=(int)(Math.random()*5)+1;
 
-		if(player.getHealth()<=0){
-			//			System.out.println(player.getHealth());
-		}
+			}
 
-		for(Weapon s: bullets){
-			s.shoot();
-		}
+			if(timeCount%1500==0 && change == true){
+				change = false;
+			}
 
-		if(shooting == true && player.getChoice() == 2 && ammo >0 ){
-			player.setChoice(13);
-		}
-		else if(shooting == true && player.getChoice() == 1 && ammo >0){
-			player.setChoice(14);
-			player.setX(player.getX()-54);
-		}
-		else if(shooting == true && player.getChoice() == 3 && ammo >0){
-			player.setChoice(15);
-		}
-		else if(shooting == true && player.getChoice() == 0 && ammo >0){
-			player.setChoice(12);
-			player.setY(player.getY()-50);
-		}
-		
-		if(shooting == true && timeCount%20 == 0 && player.getChoice()== 13 && ammo >0){
-			shooting = false;
-			player.setChoice(2);
-		}
-		else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 14 && ammo >0){
-			shooting = false;
-			player.setChoice(1);
-			player.setX(player.getX()+54);
-		}
-		else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 15 && ammo >0){
-			shooting = false;
-			player.setChoice(3);
-		}
-		else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 12 && ammo >0){
-			shooting = false;
-			player.setChoice(0);
-			player.setY(player.getY()+50);
-		}
-		
-		
-		//				for(int i =  bullets.size(); i > 0; i--){
-		//					if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
-		//						bullets.remove(bullets.get(i));
-		//					}
-		//		}
-		for(Character tree:trees){
-			if(player.getBounds().intersects(tree.getBounds())){
-
-				switch(direction){
-
-				case 0:
-					moving=false;
-					direction=-1;
-					moving = true;
-					direction = 1;
-					bDirection = 1;
-					player.setChoice(1);
-					break;
-
-				case 1:
-					moving=false;
-					direction=-1;
-					moving = true;
-					direction = 0;
-					bDirection = 0;
-					player.setChoice(2);
-					break;
+			//		for(int o=bullets.size()-1;o>0;o--){
+			//			for(int n=enemies.size()-1;n>1;n--){
+			//				if(bullets.get(o).getBounds().intersects(enemies.get(0).getBounds())){
+			//					enemies.get(0).setHealth(enemies.get(0).getHealth()-15);
+			//					System.out.println(enemies.get(o).getHealth());
+			//
+			//				}
+			//				if(bullets.get(o).getBounds().intersects(enemies.get(n).getBounds())){
+			////					bullets.remove(o);
+			//					enemies.get(o).setHealth(enemies.get(o).getHealth()-15);
+			//					System.out.println(enemies.get(o).getHealth());
+			//				}
+			//			}
+			//		}
 
 
-				case 2:
-					moving=false;
-					direction=-1;
-					moving = true;
-					direction = 3;
-					bDirection = 3;
-					player.setChoice(0);
-					break;
-				case 3:
-					moving=false;
-					direction=-1;
-					moving = true;
-					direction = 2;
-					bDirection = 2;
-					player.setChoice(3);
-					break;
+
+
+			if(timeCount%2 == 0){
+				for(Character zomb:enemies){
+					zomb.timerMove();
 				}
 			}
-		}
-		for(Character tree:trees){
-			for(Character zomb:enemies){
+
+			for(Weapon b:bullets){
+				for(Character c:enemies){
+					if(b.getBounds().intersects(c.getBounds())){
+						c.setHealth(c.getHealth()-15);
+						b.setSpeed(0);
+						if(c.getDirection() == 4){
+							c.setChoice(8);
+							this.repaint();
+						}
+						if(c.getDirection()==1){
+							c.setChoice(9);
+							this.repaint();
+						}
+						if(c.getDirection()==2){
+							c.setChoice(10);
+							this.repaint();
+						}
+						if(c.getDirection()==3){
+							c.setChoice(11);
+							this.repaint();
+						}
+						//					System.out.println(c.getChoice());
+					}
+				}
+			}
+			if(timeCount%100==0){
+				System.out.println(enemies.size());
+			}
+			if(timeCount%100==0){
+				for(Character zomb:enemies){
+					if(attack==false&&player.getBounds().intersects(zomb.getBounds())){
+						player.setHealth(player.getHealth()-15);
+					}
+				}
+			}
+
+			if(player.getHealth()<=0){
+				//			System.out.println(player.getHealth());
+			}
+
+			for(Weapon s: bullets){
+				s.shoot();
+			}
+
+			if(shooting == true && player.getChoice() == 2 && ammo >0 ){
+				player.setChoice(13);
+			}
+			else if(shooting == true && player.getChoice() == 1 && ammo >0){
+				player.setChoice(14);
+				player.setX(player.getX()-54);
+			}
+			else if(shooting == true && player.getChoice() == 3 && ammo >0){
+				player.setChoice(15);
+			}
+			else if(shooting == true && player.getChoice() == 0 && ammo >0){
+				player.setChoice(12);
+				player.setY(player.getY()-50);
+			}
+
+			if(shooting == true && timeCount%20 == 0 && player.getChoice()== 13 && ammo >0){
+				shooting = false;
+				player.setChoice(2);
+			}
+			else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 14 && ammo >0){
+				shooting = false;
+				player.setChoice(1);
+				player.setX(player.getX()+54);
+			}
+			else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 15 && ammo >0){
+				shooting = false;
+				player.setChoice(3);
+			}
+			else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 12 && ammo >0){
+				shooting = false;
+				player.setChoice(0);
+				player.setY(player.getY()+50);
+			}
+
+
+			//				for(int i =  bullets.size(); i > 0; i--){
+			//					if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
+			//						bullets.remove(bullets.get(i));
+			//					}
+			//		}
+			for(Character tree:trees){
 				if(player.getBounds().intersects(tree.getBounds())){
 
 					switch(direction){
 
 					case 0:
-						zomb.setSpeed(0);
-						zomb.setSpeed(1);
-						
+						moving=false;
+						direction=-1;
+						moving = true;
+						direction = 1;
+						bDirection = 1;
+						player.setChoice(1);
 						break;
 
 					case 1:
-						zomb.setSpeed(0);
-						zomb.setSpeed(1);
+						moving=false;
+						direction=-1;
+						moving = true;
+						direction = 0;
+						bDirection = 0;
+						player.setChoice(2);
 						break;
 
 
 					case 2:
-						zomb.setSpeed(0);
-						zomb.setSpeed(1);
+						moving=false;
+						direction=-1;
+						moving = true;
+						direction = 3;
+						bDirection = 3;
+						player.setChoice(0);
 						break;
 					case 3:
-						zomb.setSpeed(0);
-						zomb.setSpeed(1);
+						moving=false;
+						direction=-1;
+						moving = true;
+						direction = 2;
+						bDirection = 2;
+						player.setChoice(3);
 						break;
 					}
 				}
 			}
+			for(Character tree:trees){
+				for(Character zomb:enemies){
+					if(player.getBounds().intersects(tree.getBounds())){
+
+						switch(direction){
+
+						case 0:
+							zomb.setSpeed(0);
+							zomb.setSpeed(1);
+
+							break;
+
+						case 1:
+							zomb.setSpeed(0);
+							zomb.setSpeed(1);
+							break;
+
+
+						case 2:
+							zomb.setSpeed(0);
+							zomb.setSpeed(1);
+							break;
+						case 3:
+							zomb.setSpeed(0);
+							zomb.setSpeed(1);
+							break;
+						}
+					}
+				}
+			}
+			//t4etr
+
+
+
+
+			//		for(Character c:enemies){
+			//			if(c.getX() < player.getX() && (c.getY() == player.getY() +20 || c.getY() ==player.getY()-20) ){
+			//				c.setChoice(5);
+			//			}
+			//			if((c.getX()== player.getX()+20 || c.getX() == player.getX()-20) && c.getY() < player.getY()){
+			//				c.setChoice(7);
+			//			}
+			//		}
+
+			if(player.getHealth()<=0){
+				player.setHealth(0);
+				gameOver=true;
+			}
+
+			this.repaint();
 		}
-		//t4etr
-
-
-
-
-		//		for(Character c:enemies){
-		//			if(c.getX() < player.getX() && (c.getY() == player.getY() +20 || c.getY() ==player.getY()-20) ){
-		//				c.setChoice(5);
-		//			}
-		//			if((c.getX()== player.getX()+20 || c.getX() == player.getX()-20) && c.getY() < player.getY()){
-		//				c.setChoice(7);
-		//			}
-		//		}
-
-
-		this.repaint();
-
 	}
 
 
@@ -532,7 +545,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 				ammo--;
 			}
 			if(ammo > 0){
-			shooting = true;
+				shooting = true;
 			}
 			break;
 		case KeyEvent.VK_R:
