@@ -187,6 +187,22 @@ public class Character {
 			imageVal = 11;
 			imagePath="images/ZombieDshot.png";
 		}
+		else if(imageChoice == 12){
+			imageVal = 12;
+			imagePath="images/shootU.png";
+		}
+		else if(imageChoice == 13){
+			imageVal = 13;
+			imagePath="images/shootR.png";
+		}
+		else if(imageChoice == 14){
+			imageVal = 14;
+			imagePath="images/shootL.png";
+		}
+		else if(imageChoice == 15){
+			imageVal = 15;
+			imagePath="images/shootD.png";
+		}
 		else{
 			imageVal = -1;
 			imagePath= "images/UFO.png";

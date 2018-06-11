@@ -27,29 +27,29 @@ import javax.xml.stream.events.Comment;
 public class GraphicsPanel extends JPanel  implements KeyListener{
 	//test
 	private Timer t;								 // The timer is used to move objects at a consistent time interval.
-	private Character player;					 // A spaceship
-	private Character zombie;						     // A zombie 
+	private Character player;					 // A spaceship					     // A zombie 
 	private double background_y;
 	private double background_x;
-	public int direction;
-	public double speed;
-	public boolean moving;
+	private int direction;
+	private double speed;
+	private boolean moving;
 	private ArrayList<Character> enemies;
 	private ArrayList<Character> trees;
 	private double timeCount;
 	private boolean attack;
-	public boolean touch;
-	public int bDirection;
-	public int ammo;
+	private int bDirection;
+	private int ammo;
 	private int difficulty;
 	private int round;
 	private boolean change;
+	private boolean shooting;
 	AudioClip shot, walk, reload;
 
 	private ArrayList<Weapon> bullets;
 
 	public GraphicsPanel()
 	{
+		shooting = false;
 		change = false;
 		round = 0;
 		ammo = 12;
@@ -321,6 +321,41 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			s.shoot();
 		}
 
+		if(shooting == true && player.getChoice() == 2 && ammo >0 ){
+			player.setChoice(13);
+		}
+		else if(shooting == true && player.getChoice() == 1 && ammo >0){
+			player.setChoice(14);
+			player.setX(player.getX()-54);
+		}
+		else if(shooting == true && player.getChoice() == 3 && ammo >0){
+			player.setChoice(15);
+		}
+		else if(shooting == true && player.getChoice() == 0 && ammo >0){
+			player.setChoice(12);
+			player.setY(player.getY()-50);
+		}
+		
+		if(shooting == true && timeCount%20 == 0 && player.getChoice()== 13 && ammo >0){
+			shooting = false;
+			player.setChoice(2);
+		}
+		else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 14 && ammo >0){
+			shooting = false;
+			player.setChoice(1);
+			player.setX(player.getX()+54);
+		}
+		else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 15 && ammo >0){
+			shooting = false;
+			player.setChoice(3);
+		}
+		else if(shooting == true && timeCount%20 == 0 && player.getChoice()== 12 && ammo >0){
+			shooting = false;
+			player.setChoice(0);
+			player.setY(player.getY()+50);
+		}
+		
+		
 		//				for(int i =  bullets.size(); i > 0; i--){
 		//					if((bullets.get(i).getX() < 0 || bullets.get(i).getX() > 5000)){
 		//						bullets.remove(bullets.get(i));
@@ -492,6 +527,12 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			}else if(ammo >0 && player.getChoice() == 3){
 				bullets.add(new Weapon(30, 478, 360,1,bDirection,10));
 				ammo--;
+			}else if(ammo >0 && player.getChoice() == 0){
+				bullets.add(new Weapon(30, 508, 360,1,bDirection,10));
+				ammo--;
+			}
+			if(ammo > 0){
+			shooting = true;
 			}
 			break;
 		case KeyEvent.VK_R:
