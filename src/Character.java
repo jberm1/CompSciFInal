@@ -46,15 +46,15 @@ public class Character {
 		
 		if(imageChoice == 0){									// if statement that determines which image to use for		
 			imageVal = 0;
-			imagePath = "images/player1.png";					// a Character object.  You can add other options as well.
+			imagePath = "images/player2.png";					// a Character object.  You can add other options as well.
 		}
 		else if(imageChoice == 1){
 			imageVal = 1;
-			imagePath = "images/player1Left.png";
+			imagePath = "images/player2L.png";
 		}
 		else if(imageChoice == 2){
 			imageVal= 2;
-			imagePath = "images/player1Right.png";
+			imagePath = "images/player2.png";
 		}
 		else if(imageChoice==3){
 			imagePath = "images/zombie.png";
@@ -143,17 +143,17 @@ public class Character {
 		// when draw method is called.  You should modify															// the imagePath if you change the Character's 
 		if(imageChoice == 0){	
 			imageVal =0;														// if statement that determines which image to use for		
-			imagePath = "images/player1.png";					    // a Character object.  You can add other options as well.
+			imagePath = "images/player2.png";					    // a Character object.  You can add other options as well.
 		}else if(imageChoice == 1){
 			imageVal=1;
-			imagePath = "images/player1Left.png";
+			imagePath = "images/player2L.png";
 		}else if(imageChoice == 2){
 			imageVal =2;
-			imagePath = "images/player1Right.png";
+			imagePath = "images/player2R.png";
 		}
 		else if(imageChoice == 3){
 			imageVal =3;
-			imagePath="images/player1Back.png";
+			imagePath="images/player2D.png";
 		}
 		else if(imageChoice == 4){
 			imageVal =4;

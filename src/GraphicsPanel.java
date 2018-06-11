@@ -483,8 +483,14 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			direction = -1;
 			break;
 		case KeyEvent.VK_SPACE:
-			if(ammo >0){
+			if(ammo >0 && player.getChoice() == 2){
 				bullets.add(new Weapon(30, 500, 344,1,bDirection,10));
+				ammo--;
+			}else if(ammo >0 && player.getChoice() == 1){
+				bullets.add(new Weapon(30, 500, 320,1,bDirection,10));
+				ammo--;
+			}else if(ammo >0 && player.getChoice() == 3){
+				bullets.add(new Weapon(30, 478, 360,1,bDirection,10));
 				ammo--;
 			}
 			break;
