@@ -8,6 +8,7 @@
 //
 // Since you will modify this class you should add comments that describe when and how you modified the class.  
 //////
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -23,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.xml.stream.events.Comment;
 //
-public class GraphicsPanel extends JPanel implements KeyListener{
+public class GraphicsPanel extends JPanel  implements KeyListener{
 	//test
 	private Timer t;								 // The timer is used to move objects at a consistent time interval.
 	private Character player;					 // A spaceship
@@ -40,6 +41,8 @@ public class GraphicsPanel extends JPanel implements KeyListener{
 	public boolean touch;
 	public int bDirection;
 	public int ammo;
+	
+	AudioClip shot, walk, reload;
 
 	private ArrayList<Weapon> bullets;
 
