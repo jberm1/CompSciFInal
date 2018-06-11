@@ -9,6 +9,8 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.net.URL;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 public class Character {
@@ -17,20 +19,20 @@ public class Character {
 	private double speed;	
 	private int imageVal;
 	// This png must be saved in the images folder and will be loaded 
-										// in the constructor.
-	
+	// in the constructor.
+
 	private double x_coordinate;			// These ints will be used for the drawing the png on the graphics panel.
 	private double y_coordinate;
 	private int Direction;									// When the Character's move method is called you should update one or both
-										// of these instance variables.  (0,0) is the top left hand corner of the
-										// panel.  x increases as you move to the right, y increases as you move
-										// down.
-	
+	// of these instance variables.  (0,0) is the top left hand corner of the
+	// panel.  x increases as you move to the right, y increases as you move
+	// down.
+
 	// method: Default constructor - see packed constructors comments for a description of parameters.
 	public Character(){
 		this(0, 200, 300,1,100);
 	}
-		
+
 	// method: Character's packed constructor
 	// description: Initialize a new Character object.
 	// parameters: imageChoice - used to determine which image to load when a Character is instantiated.  You can change
@@ -38,12 +40,12 @@ public class Character {
 	//			   x_coordinate - the initial x-coordinate for Character.
 	//			   y_coordinate - the initial y-coordinate for Character.
 	public Character(int imageChoice, int x_coordinate, int y_coordinate, double speed, int health){
-        
+
 		ClassLoader cldr = this.getClass().getClassLoader();	// These eight lines of code load the Character's png
 		String imagePath;										// so that it later be painted on the graphics panel
-																// when draw method is called.  You should modify
-																// the imagePath if you change the Character's png.
-		
+		// when draw method is called.  You should modify
+		// the imagePath if you change the Character's png.
+
 		if(imageChoice == 0){									// if statement that determines which image to use for		
 			imageVal = 0;
 			imagePath = "images/player2.png";					// a Character object.  You can add other options as well.
@@ -71,14 +73,14 @@ public class Character {
 		else
 			imagePath="images/tree.png";
 		URL imageURL = cldr.getResource(imagePath);				
-        image = new ImageIcon(imageURL);						
-        
-        this.x_coordinate = x_coordinate;						// Initial coordinates for the Character.
-        this.y_coordinate = y_coordinate;  
-        this.speed = speed;
-        this.health=health;
+		image = new ImageIcon(imageURL);						
+
+		this.x_coordinate = x_coordinate;						// Initial coordinates for the Character.
+		this.y_coordinate = y_coordinate;  
+		this.speed = speed;
+		this.health=health;
 	}
-	
+
 	/**
 	 * @return the health
 	 */
@@ -98,7 +100,7 @@ public class Character {
 	public double getSpeed(){
 		return this.speed;
 	}
-//sdsad
+	//sdsad
 	// method: getBounds
 	// description: This method will return the coordinates of a rectangle that would be drawn around the 
 	// 				Character's png.  This rectangle can be used to check to see if the Character bumps into 
@@ -112,31 +114,56 @@ public class Character {
 	//				return true if the two rectangles overlap, false if they do not.
 	// return: A Rectangle - This rectangle would be like drawing a rectangle around the Character's image.
 	public Rectangle getBounds(){
-		return new Rectangle((int)x_coordinate, (int)y_coordinate, image.getIconWidth(), image.getIconHeight());
+		ArrayList<Rectangle> a=new ArrayList();
+		if(this.imageVal == 0){	
+			Rectangle r= new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+			a.add(r);
+		}
+		else if(this.imageVal ==1){
+			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+			a.add(r);
+		}
+		else if(this.imageVal==2){
+			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+			a.add(r);
+		}
+		else if(this.imageVal==3){
+			Rectangle r= new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+			a.add(r);
+		}
+		else if(this.imageVal==4){
+			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+			a.add(r);
+		}			
+		else{
+			Rectangle r=new Rectangle((int)(x_coordinate),(int)( y_coordinate), image.getIconWidth(), image.getIconHeight());
+			a.add(r);
+		}
+		return a.get(0);
 	}
-	
+
 	// method: getX
 	// description:  This method will return the x-coordinate of the top left hand corner of the the image.
 	// return: int - the x-coordinate of the top left hand corner of the the image.
 	public double getX(){
 		return x_coordinate;
 	}
-	
+
 	// method: getY
 	// description:  This method will return the y-coordinate of the top left hand corner of the the image.
 	// return: int - the y-coordinate of the top left hand corner of the the image.
 	public double getY(){
 		return y_coordinate;
 	}
-	
+
 	public void setY(double y_coordinate){
 		this.y_coordinate = y_coordinate;
 	}
-	
+
 	public void setX(double x_coordinate){
 		this.x_coordinate = x_coordinate;
 	}
-	
+
 	public void setChoice(int imageChoice){
 		ClassLoader cldr = this.getClass().getClassLoader();	// These eight lines of code load the Character's png
 		String imagePath;										// so that it later be painted on the graphics panel
@@ -210,15 +237,16 @@ public class Character {
 		URL imageURL = cldr.getResource(imagePath);				
 		image = new ImageIcon(imageURL);
 	}
-	
-	
+
+
 	public int getChoice(){
 		return imageVal;
 	}
-	
+
 	public int getDirection(){
 		return Direction;
 	}
+
 	// method: keyPressedMove
 	// description: This method should modify the Character's x or y (or perhaps both) coordinates.  When the 
 	//				graphics panel is repainted the Character will then be drawn in it's new location.
@@ -236,7 +264,7 @@ public class Character {
 		else if(direction == 3)
 			y_coordinate += 1;
 	}
-	
+
 	// method: timerMove
 	// description: This method should modify the Character's x or y (or perhaps both) coordinates.  When the 
 	//				graphics panel is repainted the Character will then be drawn in it's new location.
@@ -249,11 +277,11 @@ public class Character {
 		double differenceY=Math.abs(this.getY()-350);
 		ClassLoader cldr = this.getClass().getClassLoader();	// These eight lines of code load the Character's png
 		String imagePath = "images/zombie.png";
-		
-//		System.out.println(differenceX);
-//		System.out.println(differenceY);
+
+		//		System.out.println(differenceX);
+		//		System.out.println(differenceY);
 		//sfda
-		
+
 		if(this.x_coordinate<=450&&differenceX<2450&&differenceY<2450){
 			this.x_coordinate+= speed;
 			Direction = 1;
@@ -274,17 +302,17 @@ public class Character {
 			Direction =4;
 			imagePath = "images/zombie.png";
 		}
-		
+
 		URL imageURL = cldr.getResource(imagePath);				
 		image = new ImageIcon(imageURL);
 	}
-	
+
 	// method: draw
 	// description: This method is used to draw the image onto the GraphicsPanel.  You shouldn't need to 
 	//				modify this method.
 	// parameters: Graphics g - this object draw's the image.
 	//			   Component c - this is the component that the image will be drawn onto.
 	public void draw(Graphics g, Component c) {
-        image.paintIcon(c, g, (int)x_coordinate, (int)y_coordinate);
-    }
+		image.paintIcon(c, g, (int)x_coordinate, (int)y_coordinate);
+	}
 }
