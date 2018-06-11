@@ -215,7 +215,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		}
 		if(enemies.size()==0&&timeCount%1000==0){
 			for(int i=0;i<difficulty;i++){
-				enemies.add(new Character(20,(int)(((Math.random()*4000)+500) + background_x),(int)(((Math.random()*4000)+1)+background_y),1,78));		
+				enemies.add(new Character(20,(int)(((Math.random()*4000)+500) + background_x),(int)(((Math.random()*4000)+1)+background_y),((Math.random()*22)/10),78));		
 			}
 			difficulty+=(int)(Math.random()*5)+1;
 
