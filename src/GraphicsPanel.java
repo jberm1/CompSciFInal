@@ -42,13 +42,16 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 	public int bDirection;
 	public int ammo;
 	private int difficulty;
-
+	private int round;
+	private boolean change;
 	AudioClip shot, walk, reload;
 
 	private ArrayList<Weapon> bullets;
 
 	public GraphicsPanel()
 	{
+		change = false;
+		round = 0;
 		ammo = 12;
 		moving = false;
 		speed = 1;
@@ -103,8 +106,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		ImageIcon background2Image = new ImageIcon(imageURL);
 		background2Image.paintIcon(this, g2, (int)background_x, (int)background_y-700);
 
-
-
+		
 		//if(player.getBounds().intersects(zombie.getBounds())){	// This code will detect if the pirate and parrot have
 		// collided.  Make something happen if they do intersect.
 		//	}
@@ -127,6 +129,30 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		g2.drawString(" " + (int)ammo + "/12", 820, 690);
 		g2.setColor(Color.RED);
 		g2.drawString(" "+enemies.size() + " Zombies",0 , 690);
+		if(ammo <= 4){
+		g2.setColor(Color.WHITE);	
+		g2.setFont(new Font("Zapfino", 0, 25));
+		g2.drawString("R To Reload",400 , 690);
+		}
+		
+		
+		if(change == true){
+			ClassLoader cldr1 = this.getClass().getClassLoader();	// These five lines of code load the background picture.
+			String imagePath1 = "images/blood.png";			// Change this line if you want to use a different 
+			URL imageURL1 = cldr1.getResource(imagePath1);				// background image.  The image should be saved in the
+			ImageIcon image1 = new ImageIcon(imageURL1);				// images directory.
+			image1.paintIcon(this, g2, 255,240);
+			g2.setColor(Color.RED);	
+			g2.setFont(new Font("Zapfino", 0, 60));
+			g2.drawString("WAVE " + round, 270, 360);
+		}
+		ClassLoader cldr1 = this.getClass().getClassLoader();	// These five lines of code load the background picture.
+		String imagePath1 = "images/ammo1.png";			// Change this line if you want to use a different 
+		URL imageURL1 = cldr1.getResource(imagePath1);				// background image.  The image should be saved in the
+		ImageIcon image1 = new ImageIcon(imageURL1);				// images directory.
+		image1.paintIcon(this, g2, 800,635);
+
+	
 	}
 
 	// method:clock
@@ -214,6 +240,8 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 			}
 		}
 		if(enemies.size()==0&&timeCount%1000==0){
+			round++;
+			change = true;
 			for(int i=0;i<difficulty;i++){
 				enemies.add(new Character(20,(int)(((Math.random()*4000)+500) + background_x),(int)(((Math.random()*4000)+1)+background_y),((Math.random()*22)/10),78));		
 			}
@@ -221,6 +249,9 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 
 		}
 
+		if(timeCount%1500==0 && change == true){
+			change = false;
+		}
 
 		//		for(int o=bullets.size()-1;o>0;o--){
 		//			for(int n=enemies.size()-1;n>1;n--){

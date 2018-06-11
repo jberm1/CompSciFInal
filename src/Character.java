@@ -238,22 +238,22 @@ public class Character {
 //		System.out.println(differenceY);
 		//sfda
 		
-		if(this.x_coordinate<=450&&differenceX<600&&differenceY<600){
+		if(this.x_coordinate<=450&&differenceX<2450&&differenceY<2450){
 			this.x_coordinate+= speed;
 			Direction = 1;
 			imagePath = "images/ZombieRight.png";
 		}
-		if(this.x_coordinate>=470&&differenceX<600&&differenceY<600){
+		if(this.x_coordinate>=470&&differenceX<1950&&differenceY<1950){
 			this.x_coordinate-=speed;
 			Direction = 2;
 			imagePath = "images/ZombieLeft.png";
 		}
-		if(this.y_coordinate<320&&differenceX<600&&differenceY<600){
+		if(this.y_coordinate<320&&differenceX<2850&&differenceY<2850){
 			this.y_coordinate+=speed;
 			Direction = 3;
 			imagePath = "images/ZombieDown.png";
 		}
-		if(this.y_coordinate>330&&differenceX<600&&differenceY<600){
+		if(this.y_coordinate>330&&differenceX<3900&&differenceY<3900){
 			this.y_coordinate-=speed;
 			Direction =4;
 			imagePath = "images/zombie.png";
