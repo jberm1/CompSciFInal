@@ -49,7 +49,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 
 	public GraphicsPanel()
 	{
-		ammo = 100;
+		ammo = 12;
 		moving = false;
 		speed = 1;
 		bDirection = 2;
@@ -125,7 +125,8 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		g2.setFont(new Font("Zapfino", 0, 30));
 		g2.setColor(Color.WHITE);
 		g2.drawString(" " + (int)ammo + "/12", 820, 690);
-		g2.drawString(" "+enemies.size(),900 , 660);
+		g2.setColor(Color.RED);
+		g2.drawString(" "+enemies.size() + " Zombies",0 , 690);
 	}
 
 	// method:clock
@@ -216,7 +217,7 @@ public class GraphicsPanel extends JPanel  implements KeyListener{
 		}
 		if(enemies.size()==0&&timeCount%1000==0){
 			for(int i=0;i<difficulty;i++){
-				enemies.add(new Character(20,(int)(Math.random()*4000)+500,(int)(Math.random()*4000)+1,1,50));		
+				enemies.add(new Character(20,(int)(((Math.random()*4000)+500) + background_x),(int)(((Math.random()*4000)+1)+background_y),1,78));		
 			}
 				difficulty+=(int)(Math.random()*5)+1;
 			
